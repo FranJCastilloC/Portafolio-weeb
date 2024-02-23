@@ -3,7 +3,7 @@ export const portfolioData = [
     id: 1,
     class: "isotop-item logo",
     bgClass: "bg-prink",
-    imgSrc: "/assets/img/work/Analyzing Customer Churn/3_5_more_insights_solution_page-0006.jpg",
+    imgSrc: "/assets/img/work/BI project.png",
     subtitle: "Churn Rate Analyst , Power BI",
     title: "Analyzing Customer Churn ",
     target: "#portfolio-1",

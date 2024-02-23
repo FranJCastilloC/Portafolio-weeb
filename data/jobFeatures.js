@@ -16,7 +16,7 @@ export const items = [
   },
   {
     id: 3,
-    icon: "/assets/img/Power Bi.png",
+    icon: "/assets/img/PBI.png",
     title: "Power BI / Tableau ",
     description:
       "Create interactive visualizations and dashboards from data from multiple sources.",
