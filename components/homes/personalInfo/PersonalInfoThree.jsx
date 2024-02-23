@@ -51,7 +51,7 @@ export default function PersonalInfoThree() {
           </div>
 
           <div className="bostami-parsonal-info-btn">
-            <a className="btn-2" href="https://estintecedu-my.sharepoint.com/personal/1093910_est_intec_edu_do/_layouts/15/onedrive.aspx?id=%2Fpersonal%2F1093910%5Fest%5Fintec%5Fedu%5Fdo%2FDocuments%2FEscritorio%2FCV%2Epdf&parent=%2Fpersonal%2F1093910%5Fest%5Fintec%5Fedu%5Fdo%2FDocuments%2FEscritorio&ga=1" download>
+            <a className="btn-2" href="/CV.pdf" download>
               <span style={{ color: "#fff" }} className="icon">
                 <i className="fa-regular fa-download"></i>
               </span>
