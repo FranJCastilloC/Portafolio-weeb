@@ -9,7 +9,7 @@ export const items = [
   },
   {
     id: 2,
-    icon: "/assets/img/python.png",
+    icon: "/assets/img/Python.png",
     title: "Python ETL / EDA / Machine Learning / Pandas",
     description:
       "Exploratory data analysis uncovers patterns, statistical insights, and machine learning aids in predictive modeling and classification.",
