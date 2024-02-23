@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/CV", "destination": "/public/cv.pdf" }
+    ]
+  }
+  
