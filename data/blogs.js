@@ -7,7 +7,7 @@ export const blogData = [
     category: "University degree",
     title: "Instituto Tecnologico De Santo Domingo",
     previewLink: "https://www.etitulo.com/validate/v/0AD1017B-3E24-4866-87BB-7FFEF9D9FB54",
-    previewName: "www.intec.com",
+    previewName: "www.intec.com.do",
     desc: [
       `Professional oriented to the design, improvement, installation and implementation of systems 
       integrated by people, equipment, materials, information, and energy. The degree is based on specialized 
