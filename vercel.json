@@ -1,6 +1,14 @@
 {
-    "rewrites": [
-      { "source": "/CV", "destination": "/CV.pdf" }
+    "headers": [
+      {
+        "source": "/cv.pdf",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/pdf"
+          }
+        ]
+      }
     ]
   }
   
