@@ -64,7 +64,7 @@ export default function Header() {
               <div className="bostami-header-logo">
                 <Link className="site-logo" href="/">
                   <Image
-                    width={153}
+                    width={31}
                     height={32}
                     src="/assets/img/logo/Palmera-2.png"
                     alt="logo"
