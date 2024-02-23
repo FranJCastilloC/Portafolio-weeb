@@ -6,7 +6,7 @@ export const blogData = [
     date: "15 March 2023",
     category: "University degree",
     title: "Instituto Tecnologico De Santo Domingo",
-    previewLink: "https://portal.etitulo.com/visor.aspx?o=p&id=nCc5H",
+    previewLink: "https://www.etitulo.com/validate/v/0AD1017B-3E24-4866-87BB-7FFEF9D9FB54",
     previewName: "www.intec.com",
     desc: [
       `Professional oriented to the design, improvement, installation and implementation of systems 
