@@ -1,0 +1,119 @@
+.isotop-item {
+  height: fit-content !important;
+}
+.main_menu_2 {
+  @media (max-width: 991px) {
+    display: none !important;
+  }
+}
+
+.projectsGrid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)) !important;
+  // grid-auto-rows: none !important;
+  grid-gap: 0;
+  align-content: start;
+}
+.projectsGrid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)) !important;
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 0;
+  align-content: start;
+  .isotop-item {
+    // max-height: fit-content;
+    overflow: hidden !important ;
+  }
+}
+.bostami-parsonal-info-social-link {
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px 7.5px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+.handleHover {
+  &:hover {
+    color: var(--common-black) !important ;
+  }
+}
+.sunicon {
+  font-size: 20px;
+  color: #fff;
+}
+.moonicon {
+  font-size: 20px;
+}
+.mode-btn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  &:hover {
+    color: #fff;
+  }
+}
+
+.fadeup {
+  animation: fadeup 0.5s linear 0s 1 backwards;
+}
+
+.fadeingpre {
+  & > * {
+    animation: fafein 1.5s linear 0s 1 backwards;
+  }
+}
+
+@keyframes fafein {
+  0% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeup {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+body {
+  .form-input-item {
+    input {
+      color: var(--common-black);
+    }
+    textarea {
+      color: var(--common-black);
+    }
+  }
+  &.dark-theme {
+    .form-input-item {
+      input {
+        color: #fff;
+      }
+      textarea {
+        color: #fff;
+      }
+    }
+  }
+}
+// .btn-1{
+//     &:focus{
+//         color: #fff !important;
+//     }
+// }
+
+body {
+  background-position: center center;
+  background-size: cover;
+}
