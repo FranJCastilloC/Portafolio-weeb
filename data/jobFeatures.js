@@ -24,7 +24,7 @@ export const items = [
   },
   {
     id: 4,
-    icon: "/assets/img/Excel.png",
+    icon: "/assets/img/ex.png",
     title: "Excel Macros/ VBA / spreadsheet ",
     description:
       "Excel enables complex data analysis with macros and VBA for automated tasks, fostering efficient workflows.",
