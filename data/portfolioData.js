@@ -157,6 +157,25 @@ export const portfolioData = [
       among others. The aim is to determine whether the adverse reactions, if any, are of significant proportions. All this using various programming tools in Python and statistics. `,
     ],
   },
+
+  {
+    id: 6,
+    class: "isotop-item design mockup",
+    bgClass: "bg-catkrill",
+    imgSrc: "/assets/img/work/PIP.jpg",
+    subtitle: "Analyst  , Tableau, Statistics",
+    title: "NBA Insights",
+    target: "#portfolio-1",
+    category: ["In Progress"],
+    project: "NBA EDA and Hypothesis Testing",
+    languages: ["SQL", "Python", "Tableau"],
+    client: "Personal",
+    previewLink: "",
+    previewName: "Not Yet",
+    desc: [
+      `Project in process `,
+    ],
+  },
   
 
 
@@ -182,8 +201,13 @@ export const filterButtons = [
     text: "Power BI",
   },
   {
-    id: 4,
+    id: 5,
     text: "Excel",
+  },
+
+  {
+    id: 6,
+    text: "In Progress",
   },
 ];
 
