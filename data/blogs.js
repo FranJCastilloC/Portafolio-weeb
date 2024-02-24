@@ -3,7 +3,7 @@ export const blogData = [
     id: 1,
     imgSrc: "/assets/img/blog/intec.jpg",
     bgClass: "bg-prink",
-    date: "15 March 2023",
+    date: "April 2023",
     category: "University degree",
     title: "Instituto Tecnologico De Santo Domingo",
     previewLink: "https://www.etitulo.com/validate/v/0AD1017B-3E24-4866-87BB-7FFEF9D9FB54",
@@ -23,7 +23,7 @@ export const blogData = [
     id: 2,
     imgSrc: "/assets/img/blog/DA.jpg",
     bgClass: "bg-prink",
-    date: "25 December 2023",
+    date: "December 2023",
     category: "Certificate",
     title: "Professional Data Analyst",
     previewLink: "https://www.datacamp.com/certificate/DA0027511945795",
@@ -43,7 +43,7 @@ export const blogData = [
     id: 3,
     imgSrc: "/assets/img/blog/SQL.jpg",
     bgClass: "bg-prink",
-    date: "2 February 2024",
+    date: "February 2024",
     category: "Certificate",
     title: "SQL Asociate ",
     previewLink: "https://www.datacamp.com/certificate/SQA0017127737890",
@@ -61,7 +61,7 @@ export const blogData = [
     id: 4,
     imgSrc: "/assets/img/blog/SCR.jpg",
     bgClass: "bg-prink",
-    date: "21 June 2022",
+    date: "June 2022",
     category: "SCRUMstudy",
     title: "Scrum Fundamentals Certified ",
     previewLink: "https://www.datacamp.com/certificate/SQA0017127737890",
@@ -81,7 +81,7 @@ export const blogData = [
     id: 5,
     imgSrc: "/assets/img/blog/cisco.jpg",
     bgClass: "bg-prink",
-    date: "21 Octuber 2023",
+    date: "Octuber 2023",
     category: "Certificate",
     title: "Introduction to Data Science  ",
     previewLink: "https://www.credly.com/badges/6acc7f9d-e4b0-47df-beb1-5ef541557a0b/print",
@@ -102,9 +102,9 @@ export const blogData = [
     id: 6,
     imgSrc: "/assets/img/blog/itla.jpg",
     bgClass: "bg-prink",
-    date: "2 September 2023",
+    date: "September 2023",
     category: "Certificate",
-    title: "Introduccio a las Bases de Datos ",
+    title: "Introduccion a las Bases de Datos ",
     previewLink: "https://orbi.edu.do/orbi/educacionpermanente/cursosaprobados/qr/245083/68552",
     previewName: "www.itla.com",
     desc: [
@@ -112,6 +112,25 @@ export const blogData = [
        create and manage databases. The program focuses on teaching the foundational skills necessary for constructing and querying databases,
         providing entry-level individuals with the expertise needed to start working with database systems. This certification equips learners with 
         the knowledge to handle basic database tasks, which is an essential skill set for various IT roles. `,
+
+     
+    ],
+  },
+
+  {
+    id: 6,
+    imgSrc: "/assets/img/blog/PL-300.jpg",
+    bgClass: "bg-prink",
+    date: "In Progress",
+    category: "Certificate",
+    title: "PL-300: Microsoft Power BI Data Analyst",
+    previewLink: "https://learn.microsoft.com/es-es/credentials/certifications/exams/pl-300/",
+    previewName: "www.Microsoft.com",
+    desc: [
+      `Microsoft's PL-300 certification, titled "Power BI Data Analyst," is designed for professionals looking 
+      to demonstrate their skills in using Power BI to analyze data from different data sources. This certification
+      validates the professional's ability to prepare, model, visualize and analyze data, as well as deploy and maintain 
+      data deliverables. `,
 
      
     ],
