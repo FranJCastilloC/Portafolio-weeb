@@ -159,7 +159,7 @@ export const portfolioData = [
   },
 
   {
-    id: 6,
+    id: 7,
     class: "isotop-item design mockup",
     bgClass: "bg-catkrill",
     imgSrc: "/assets/img/work/PIP.jpg",
