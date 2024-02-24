@@ -173,7 +173,33 @@ export const portfolioData = [
     previewLink: "",
     previewName: "Not Yet",
     desc: [
-      `Project in process `,
+      `Analyzing the NBA's historical data set in order to identify the factors that influence a team to be successful from a statistical point of view as a team and individually 
+      by player, we will also question the following question "The teams that spend the most And the players with the highest salaries are the most successful?`,
+    ],
+  },
+
+  {
+    id: 8,
+    class: "isotop-item design mockup",
+    bgClass: "bg-catkrill",
+    imgSrc: "/assets/img/work/PIP.jpg",
+    subtitle: "Excel, VBA, Macros",
+    title: "Automatic Inventory",
+    target: "#portfolio-1",
+    category: ["In Progress", "Excel"],
+    project: "Automatic spreadsheet in excel for inventary process",
+    languages: ["Excel"],
+    client: "Personal",
+    previewLink: "",
+    previewName: "Not Yet",
+    desc: [
+      `An automatic Excel spreadsheet for the inventory process designed to simplify and automate inventory management. 
+      It uses Excel formulas and functions to record and monitor stock levels, product inputs and outputs, and can include features such as:
+
+      -> Automatic Stock Calculation: Updates inventory levels automatically when new entries or exits are added.
+      -> Low Inventory Alerts: Set up notifications for when stock levels fall below a predefined threshold, making replenishment management easier.
+      -> Product Tracking: Maintains a detailed record of products, including descriptions, quantities, locations, and expiration dates.
+      -> Data Analysis: Provides the ability to generate reports and visualizations to analyze inventory trends, such as best-selling products or peak demand periods.`,
     ],
   },
   
