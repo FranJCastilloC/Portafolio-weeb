@@ -203,6 +203,26 @@ export const portfolioData = [
     ],
   },
   
+  {
+    id: 9,
+    class: "isotop-item design mockup",
+    bgClass: "bg-catkrill",
+    imgSrc: "/assets/img/work/PIP.jpg",
+    subtitle: "Excel, Python",
+    title: "Automatic Inventory",
+    target: "#portfolio-1",
+    category: ["In Progress"],
+    project: "Modelo Predictivo para la Estimación del Consumo Eléctrico Residencial en Santo Domingo",
+    languages: ["Excel, Python"],
+    client: "Personal",
+    previewLink: "",
+    previewName: "Not Yet",
+    desc: [
+      `This study proposes a predictive model, developed in Python and based on advanced statistical techniques, to estimate residential electricity consumption in Santo Domingo. 
+      Using Python to analyze historical data and applying statistical models, we seek to predict future consumption and optimize energy management in the residential area.`,
+
+    ],
+  },
 
 
 
