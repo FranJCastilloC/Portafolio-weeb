@@ -6,8 +6,8 @@ export const bioData = {
   of custom macros for Excel.`,
   descTwo: `I currently work as Master Data for a medical device manufacturing company defining
   the guidelines for creating and changing the materials database that drive the business process
-  analysis, needs assessments, and preliminary cost/benefit analyzes in an effort to align information
-  technological solutions with business initiatives My current goal is to enter the world of data
+  analysis, needs assessments, and Advanced Master Data Management in an effort to align information
+  technological solutions with business initiatives. My current goal is to enter the world of data
   and put my skills into practice in the different Data Analyst/Scientist tools to provide
-   business solutions`,
+  business solutions`,
 };
