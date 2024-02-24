@@ -5,7 +5,7 @@ export const knoledges = [
   "ETL Process",
   "Lean Six Sigma",
   "Statistics",
-  "SQL Consults",
+  "SQL Queries",
   "Python Programmer",
   "SAP","Continuous Improvement",
   "Quality Engineering",
