@@ -61,8 +61,8 @@ export default function HeaderFour() {
               <div className="bostami-header-logo">
                 <Link className="site-logo" href="/">
                   <Image
-                    width={90}
-                    height={90}
+                    width={120}
+                    height={120}
                     src="/assets/img/logo/Palmera-2.png"
                     alt="logo"
                   />
