@@ -136,6 +136,26 @@ export const blogData = [
     ],
   },
 
+  {
+    id: 7,
+    imgSrc: "/assets/img/blog/Py.jpg",
+    bgClass: "bg-prink",
+    date: "April 2024",
+    category: "Certificate",
+    title: "Python Essentials 1",
+    previewLink: "https://www.credly.com/earner/earned/badge/0ae6953e-b0f1-470f-a300-3ef3b0b0ae60",
+    previewName: "www.Cisco.com",
+    desc: [
+      `Cisco, in collaboration with OpenEDG Python Institute, verifies the earner of this badge successfully 
+      completed the Python Essentials 1 course and achieved the student level credentials. Earners have knowledge
+       of the concepts of computer programming, the syntax and semantics of the Python language as well as demonstrate 
+       the ability to accomplish coding tasks related to the essentials of programming in the Python language and resolve
+        implementation challenges using the Python Standard Library. `,
+
+     
+    ],
+  },
+
   
  
   
