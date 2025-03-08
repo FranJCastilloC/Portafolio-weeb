@@ -2,19 +2,19 @@ export const skillData = [
   {
     id: 1,
     title: "Python",
-    progress: 80,
+    progress: 85,
     progressClass: "progress-bg-1",
   },
   {
     id: 2,
     title: "SQL",
-    progress: 75,
+    progress: 80,
     progressClass: "progress-bg-2",
   },
   {
     id: 3,
     title: "Power BI",
-    progress: 65,
+    progress: 90,
     progressClass: "progress-bg-3",
   },
   {
@@ -26,7 +26,7 @@ export const skillData = [
   {
     id: 4,
     title: "SAP",
-    progress: 95,
+    progress: 70,
     progressClass: "progress-bg-2",
   },
 ];

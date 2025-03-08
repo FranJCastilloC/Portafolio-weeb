@@ -9,5 +9,5 @@ export const knoledges = [
   "Python Programmer",
   "SAP","Continuous Improvement",
   "Quality Engineering",
-  "SCRUM"
+  "SCRUM","Finacila Risk"
 ];

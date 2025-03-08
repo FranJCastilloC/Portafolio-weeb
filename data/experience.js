@@ -1,8 +1,15 @@
 export const experiences = [
   {
+    id: 3,
+    bgClass: "bg-catkrill",
+    session: "Jun 2024 - Present",
+    role: "Risk Analyst (Data Science)",
+    company: "Parval.",
+  },
+  {
     id: 1,
     bgClass: "bg-catkrill",
-    session: "Jun 2023 - Present",
+    session: "Jun 2023 - Jun 2024",
     role: "SAP Master Data",
     company: "Jabil Healthcare.",
   },

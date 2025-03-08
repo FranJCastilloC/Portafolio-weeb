@@ -1,13 +1,14 @@
 export const bioData = {
-  descOne: `Industrial Engineer graduated from the Technological Institute of Santo Domingo,
-  with a certification as a "Professional Data Analyst". I have a solid
-  training in statistics and extensive experience in using various tools
-  and technologies, including Python, SQL, SAP, Power BI, Excel, Visual Basic and development
-  of custom macros for Excel.`,
-  descTwo: `I currently work as Master Data for a medical device manufacturing company defining
-  the guidelines for creating and changing the materials database that drive the business process
-  analysis, needs assessments, and Advanced Master Data Management in an effort to align information
-  technological solutions with business initiatives. My current goal is to enter the world of data
-  and put my skills into practice in the different Data Analyst/Scientist tools to provide
-  business solutions`,
+  descOne: `Data-oriented professional with a strong background in statistics, data analysis, and risk management. 
+  Currently serving as a Risk Analyst at Parval Puesto de Bolsa, I leverage data science to assess financial risks, 
+  optimize investment strategies, and enhance decision-making in the stock market.`,
+  
+  descTwo: `I have extensive experience with Python, SQL, Power BI, and Excel, using these tools to develop risk models, 
+  automate reporting, and analyze large datasets. My expertise includes market risk analysis, VaR modeling (Historical, Monte Carlo, and Covariance), 
+  stress testing, sensitivity analysis, scenario simulations, and backtesting—ensuring a comprehensive evaluation of financial risk.`,
+  
+  descThree: `Passionate about the intersection of data science, finance, and artificial intelligence, I apply quantitative methods, 
+  advanced statistics, and machine learning techniques to enhance risk management and support data-driven investment decisions. 
+  I constantly explore ways to integrate AI and automation into risk analysis, aiming to develop more accurate and efficient 
+  solutions for financial management.`
 };
