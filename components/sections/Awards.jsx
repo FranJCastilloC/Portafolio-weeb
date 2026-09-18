@@ -30,7 +30,7 @@ export default function Awards() {
               onClick={() => setOpen(a)}
               className="panel group h-full w-full overflow-hidden text-left transition-colors hover:border-accent/35"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-surface-2">
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface-2 sm:aspect-[4/3]">
                 {a.imgSrc ? (
                   <>
                     <Image
@@ -38,14 +38,16 @@ export default function Awards() {
                       alt=""
                       fill
                       sizes="(max-width: 768px) 92vw, 45vw"
-                      className="object-cover object-top opacity-85 transition-all duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
+                      className="object-cover object-[center_40%] opacity-90 transition-all duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
                     />
+                    {/* Kept shallow: the trophy sits low in the frame and a taller
+                        gradient washes out the whole point of the photo. */}
                     <div
                       aria-hidden
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(to top, var(--color-surface) 6%, transparent 55%)",
+                          "linear-gradient(to top, var(--color-surface) 1%, transparent 20%)",
                       }}
                     />
                   </>
@@ -78,13 +80,14 @@ export default function Awards() {
           <Modal label={clean(open.title)} onClose={() => setOpen(null)}>
             <>
               {open.imgSrc && (
-                <div className="relative aspect-[4/3] w-full bg-surface-2">
+                <div className="flex justify-center bg-surface-2">
                   <Image
                     src={open.imgSrc}
                     alt={clean(open.title)}
-                    fill
-                    sizes="(max-width: 768px) 92vw, 768px"
-                    className="object-contain"
+                    width={1707}
+                    height={2560}
+                    sizes="(max-width: 768px) 92vw, 640px"
+                    className="max-h-[62vh] w-auto object-contain"
                   />
                 </div>
               )}

@@ -26,8 +26,8 @@ export default function About() {
               <Image
                 src={profileInfo.imageSrc}
                 alt={profileInfo.name}
-                width={800}
-                height={800}
+                width={1080}
+                height={1320}
                 sizes="(max-width: 1024px) 90vw, 380px"
                 className="h-auto w-full object-cover"
               />
