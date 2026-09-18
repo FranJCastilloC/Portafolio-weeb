@@ -1,23 +1,17 @@
 export const awards = [
   {
     id: 1,
-    bgClass: "bg-catkrill",
-    year: "2015-2017",
-    role: "Graphic Designer",
-    text: "Web Graphy, Los Angeles, CA",
-  },
-  {
-    id: 2,
-    bgClass: "bg-prink",
-    year: "2014 - 2015",
-    role: "Jr. Web Developer",
-    text: "Creative Gigs.",
-  },
-  {
-    id: 3,
-    bgClass: "bg-catkrill",
-    year: "2015-2017",
-    role: "Best Freelancer",
-    text: "Fiver & Upwork Level 2 & Top Rated.",
+    title: "Talento del Año 2025",
+    issuer: "Parallax Valores (Parval)",
+    date: "2025",
+    role: "Analista de Riesgos",
+    imgSrc: "/assets/img/awards/talento-del-ano-2025.jpg",
+    metric: "Company-wide recognition",
+    desc: [
+      `Company-wide recognition awarded by Parallax Valores (Parval) for outstanding
+      performance during 2025 in the Risk Analyst role, covering quantitative risk
+      modelling, data validation and the automation of the reporting that supports
+      investment decisions.`,
+    ],
   },
 ];

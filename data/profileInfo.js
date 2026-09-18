@@ -1,11 +1,6 @@
-
-
-
 export const profileInfo = {
-   name:'Francisco Castillo',
-   title:' Data Science | Risk Analyst | Master Data | Data Analyst | Industrial Engineer | Palmera Analytics' ,
-   imageSrcOne:'/assets/img/parsonal-info/parson-img-1.png',
-   imageSrcTwo:'/assets/img/parsonal-info/parson-img-3.png',
-   imageSrcThree:'/assets/img/parsonal-info/parson-img-2.png',
-
-}
+  name: "Francisco Castillo",
+  title:
+    "Machine Learning & Deep Learning | Data Science | Risk Analyst @ Parval | MSc AI Development | Industrial Engineer",
+  imageSrc: "/assets/img/parsonal-info/francisco-2026.png",
+};

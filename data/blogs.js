@@ -45,7 +45,7 @@ export const blogData = [
     bgClass: "bg-prink",
     date: "February 2024",
     category: "Certificate",
-    title: "SQL Asociate ",
+    title: "SQL Associate ",
     previewLink: "https://www.datacamp.com/certificate/SQA0017127737890",
     previewName: "www.DataCamp.com",
     desc: [

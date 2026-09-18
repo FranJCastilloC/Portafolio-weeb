@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces — near-black blue, the trading-desk plane */
+  --color-bg: #05070b;
+  --color-surface: #0a0e14;
+  --color-surface-2: #0f151e;
+  --color-surface-3: #141c28;
+  --color-line: #1c2736;
+  --color-line-soft: #131b26;
+
+  /* Ink */
+  --color-ink: #e7eef6;
+  --color-ink-2: #9fb0c3;
+  --color-muted: #63758b;
+
+  /* UI accent — terminal mint (text/border/glow, WCAG-checked as text) */
+  --color-accent: #3ddc97;
+  --color-accent-2: #5eead4;
+
+  /* Chart series — validated set for surface #0a0e14
+     (lightness band, chroma, CVD ΔE, normal-vision ΔE, contrast: all pass) */
+  --color-s1: #0ca772;
+  --color-s2: #2b90d9;
+  --color-s3: #c98500;
+  --color-s4: #d55181;
+  --color-s5: #9085e9;
+  --color-s6: #e05252;
+
+  /* Status */
+  --color-pos: #0ca30c;
+  --color-neg: #e05252;
+  --color-warn: #fab219;
+
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-sans-face), system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* The faint coordinate grid the whole page sits on */
+  .grid-plane {
+    background-image:
+      linear-gradient(to right, var(--color-line-soft) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line-soft) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 0.5rem;
+  }
+
+  /* Monospace micro-label: the "field name" of the terminal */
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .glow-accent {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-accent) 30%, transparent),
+                0 0 24px -6px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 18px color-mix(in oklab, var(--color-accent) 55%, transparent);
+  }
+
+  /* Edge fade for marquees / overflow rails */
+  .fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+}
+
+/* The blinking terminal caret */
+@keyframes caret {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.14em;
+  background: var(--color-accent);
+  vertical-align: -0.16em;
+  animation: caret 1.15s steps(1) infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+
+@keyframes sweep {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(2400%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

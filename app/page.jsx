@@ -1,30 +1,31 @@
-// import Hero from "@/components/preview/Hero";
-// import Buy from "@/components/preview/Buy";
-// import CopyRight from "@/components/preview/CopyRight";
-// import Demo from "@/components/preview/Demo";
-// import Features from "@/components/preview/Features";
+import Nav from "@/components/sections/Nav";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Stack from "@/components/sections/Stack";
+import Experience from "@/components/sections/Experience";
+import Awards from "@/components/sections/Awards";
+import Projects from "@/components/sections/Projects";
+import Certificates from "@/components/sections/Certificates";
+import Reading from "@/components/sections/Reading";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
 
-
-import Home3 from "./(homes)/home-3/page";
-
-
-
-// import "../public/assets/css/style.css";
-
-// export const metadata = {
-//   title: "Preview || Bostami - Professional portfolio NextJS Template",
-//   description:
-//     "Discover Botami,the most impressive portfolio template for work showcase, blog",
-// };
-export default function page() {
+export default function Page() {
   return (
     <>
-      <Home3/>
-      {/*<Hero />
-      <Demo />
-      <Features />
-      <Buy />
-  <CopyRight />*/}
+      <Nav />
+      <main id="main">
+        <Hero />
+        <About />
+        <Stack />
+        <Experience />
+        <Awards />
+        <Projects />
+        <Certificates />
+        <Reading />
+        <Contact />
+      </main>
+      <Footer />
     </>
   );
 }
