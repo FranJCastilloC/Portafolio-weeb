@@ -17,7 +17,7 @@ const mono = JetBrains_Mono({
 export const metadata = {
   metadataBase: new URL("https://portafolio-weeb-7uzj.vercel.app"),
   title: {
-    default: `${profileInfo.name} — Risk Analyst & Data Scientist`,
+    default: `${profileInfo.name} — Machine Learning & Data Science`,
     template: `%s — ${profileInfo.name}`,
   },
   description:
@@ -36,14 +36,14 @@ export const metadata = {
   authors: [{ name: profileInfo.name }],
   openGraph: {
     type: "website",
-    title: `${profileInfo.name} — Risk Analyst & Data Scientist`,
+    title: `${profileInfo.name} — Machine Learning & Data Science`,
     description:
       "VaR modelling, stress testing and data pipelines. Selected work in Python, SQL and Power BI.",
     siteName: profileInfo.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profileInfo.name} — Risk Analyst & Data Scientist`,
+    title: `${profileInfo.name} — Machine Learning & Data Science`,
     description: "VaR modelling, stress testing and data pipelines.",
   },
   icons: { icon: "/assets/img/favicon.png" },

@@ -7,10 +7,10 @@ import CountUp from "@/components/ui/CountUp";
 import { socialMediaData } from "@/data/socials";
 
 const ROLES = [
-  "Risk Analyst",
+  "Machine Learning Engineer",
   "Data Scientist",
-  "Industrial Engineer",
-  "VaR Modeller",
+  "Deep Learning / PyTorch",
+  "Risk Analyst",
   "AI Postgrad",
 ];
 
@@ -53,7 +53,7 @@ function RoleTyper() {
 
 const STATS = [
   { value: 5, suffix: "+", label: "Years in data, risk & quality" },
-  { value: 7, suffix: "", label: "Analytics projects shipped" },
+  { value: 8, suffix: "", label: "ML & analytics projects shipped" },
   { value: 8, suffix: "", label: "Certifications earned" },
 ];
 
@@ -103,11 +103,12 @@ export default function Hero() {
             </p>
 
             <p className="mt-6 max-w-lg text-[0.975rem] leading-relaxed text-ink-2">
-              I turn market and operational data into decisions — VaR models
-              (historical, Monte Carlo, covariance), stress testing and scenario
-              simulation, built in Python, SQL and Power BI. Five years across
-              financial services and regulated manufacturing, where a number being
-              wrong has consequences.
+              I build machine learning and deep learning systems on data that has
+              to be right — fine-tuned transformers for NLP, predictive models in
+              PyTorch and scikit-learn, and the evaluation that decides whether a
+              model is actually usable. Day to day I am a Risk Analyst modelling
+              VaR, stress testing and scenario simulation: five years where a
+              number being wrong has consequences.
             </p>
 
             <p className="mt-5 inline-flex max-w-full items-center gap-2.5 rounded border border-line bg-surface/60 px-3.5 py-2 font-mono text-[0.72rem] text-ink-2">

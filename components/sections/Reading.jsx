@@ -12,7 +12,7 @@ export default function Reading() {
       <SectionHeading index="07" kicker="Self-study" title="Reading" />
 
       <p className="mb-8 max-w-2xl text-[0.92rem] leading-relaxed text-ink-2">
-        The machine learning and deep learning groundwork behind the projects below —
+        The machine learning and deep learning groundwork behind the work above —
         what I read, and what I took from each one.
       </p>
 

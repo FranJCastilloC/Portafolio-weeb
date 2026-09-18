@@ -178,9 +178,75 @@ export const portfolioData = [
   },
 
 
-  
+  {
+    id: 8,
+    class: "isotop-item design mockup",
+    bgClass: "bg-catkrill",
+    imgSrc: "/assets/img/work/anomaly-dq.png",
+    subtitle: "Anomaly Detection , Python/PyTorch",
+    title: "Data Quality & Anomaly Detection Engine",
+    target: "#portfolio-1",
+    category: ["Python"],
+    project: "Machine Learning Engineer",
+    languages: ["Python", "PyTorch", "scikit-learn", "Streamlit"],
+    client: "Personal",
+    previewLink: "",
+    previewName: "Not Yet",
+    desc: [
+      `An audit engine for large tabular financial and ERP datasets. It scores a batch
+      for data quality across five dimensions, detects anomalies at record level with a
+      deep autoencoder, and returns a prioritized register of issues where every finding
+      carries the reason it was raised, a computed severity and a recommended action.
+      The models are trained on public credit card transaction data from the ULB fraud
+      detection dataset, alongside a synthetic SAP-style ERP extract of vendors,
+      materials, bills of materials and purchase orders.`,
 
+      `The autoencoder reaches 3.2 times the PR-AUC of an Isolation Forest baseline under
+      an identical review budget, catching 54 of 75 frauds against 35 for the same
+      reviewer effort. Because the synthetic ERP data is corrupted with a ground-truth
+      ledger of every defect, the quality engine itself is measurable: it recovers 99.5%
+      of 4,665 injected defects, with 100% precision on the deterministic rules.
+      A Streamlit demo accepts any CSV and returns the full audit.`,
+    ],
+  },
 
+  {
+    id: 9,
+    class: "isotop-item logo",
+    bgClass: "bg-lite-green",
+    imgSrc: "/assets/img/work/pii-pipeline.png",
+    subtitle: "NLP · Transformers · PyTorch",
+    title: "PII Detection & Redaction Pipeline",
+    target: "#portfolio-9",
+    category: ["Python"],
+    project: "Machine Learning / NLP",
+    languages: ["Python", "PyTorch", "Hugging Face", "Presidio", "Streamlit"],
+    client: "Personal",
+    previewLink: "",
+    previewName: "",
+    desc: [
+      `End-to-end system that takes business documents in Spanish and English — invoices, contracts,
+      emails, support tickets and onboarding forms — detects the personal data in them, redacts it,
+      scores every detection with a calibrated confidence, and routes the ambiguous cases to a human
+      review queue.`,
+
+      `Three detectors are benchmarked against each other: a rule engine with real checksum validation
+      (Luhn, IBAN mod-97, DNI/NIE, CUIT), Microsoft Presidio with multilingual spaCy, and a
+      DistilBERT multilingual model fine-tuned for token classification over 10 PII classes, which
+      reaches F1 0.935 on held-out validation.`,
+
+      `The finding that shaped the architecture: no single approach wins. Rules dominate on
+      checksum-verifiable identifiers, the model dominates on free text, and only the ensemble stays
+      near the best score on almost every entity type — cutting PII leakage by 40% versus the
+      baseline on full documents it was never trained on.`,
+
+      `Evaluation goes past F1 into the two metrics a privacy team actually asks for: leakage rate
+      (how much real PII survived) and over-redaction rate (how much legitimate text was destroyed).
+      Confidence is calibrated per detector-and-type, which cuts expected calibration error by 75%
+      where a single global fit does nothing. Ships with a Streamlit demo, 45 tests and a full
+      reproducible pipeline.`,
+    ],
+  },
 ];
 
 export const filterButtons = [
