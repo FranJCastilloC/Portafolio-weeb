@@ -190,8 +190,10 @@ export const portfolioData = [
     project: "Machine Learning Engineer",
     languages: ["Python", "PyTorch", "scikit-learn", "Streamlit"],
     client: "Personal",
-    previewLink: "",
-    previewName: "Not Yet",
+    previewLink: "https://franjcastilloc-sistema-de-detecci-n-de--appstreamlit-app-tamqnx.streamlit.app/",
+    previewLabel: "Open live demo",
+    previewName: "Streamlit demo",
+    repoLink: "https://github.com/FranJCastilloC/Sistema-de-Detecci-n-de-Anomal-as-y-Scoring-de-Datos",
     desc: [
       `An audit engine for large tabular financial and ERP datasets. It scores a batch
       for data quality across five dimensions, detects anomalies at record level with a
@@ -222,8 +224,10 @@ export const portfolioData = [
     project: "Machine Learning / NLP",
     languages: ["Python", "PyTorch", "Hugging Face", "Presidio", "Streamlit"],
     client: "Personal",
-    previewLink: "",
-    previewName: "",
+    previewLink: "https://franjcastilloc-pii-detection-redaction--appstreamlit-app-cy5qbr.streamlit.app/",
+    previewLabel: "Open live demo",
+    previewName: "Streamlit demo",
+    repoLink: "https://github.com/FranJCastilloC/PII-Detection-Redaction-Pipeline",
     desc: [
       `End-to-end system that takes business documents in Spanish and English — invoices, contracts,
       emails, support tickets and onboarding forms — detects the personal data in them, redacts it,
@@ -245,6 +249,54 @@ export const portfolioData = [
       Confidence is calibrated per detector-and-type, which cuts expected calibration error by 75%
       where a single global fit does nothing. Ships with a Streamlit demo, 45 tests and a full
       reproducible pipeline.`,
+    ],
+  },
+
+  {
+    id: 10,
+    class: "isotop-item logo",
+    bgClass: "bg-catkrill",
+    imgSrc: "/assets/img/work/document-ai.png",
+    subtitle: "Document AI · OCR · LayoutLMv3",
+    title: "Scanned Document Classification & Extraction",
+    target: "#portfolio-10",
+    category: ["Python"],
+    project: "Machine Learning / Document AI",
+    languages: ["Python", "PyTorch", "LayoutLMv3", "Tesseract", "Streamlit"],
+    client: "Personal",
+    previewLink: "https://huggingface.co/FranJCastilloC/layoutlmv3-docint-extraction",
+    previewLabel: "Open model card",
+    previewName: "Hugging Face model",
+    repoLink:
+      "https://github.com/FranJCastilloC/Clasificaci-n-y-extracci-n-OCR-de-documentos",
+    desc: [
+      `A scanned document goes in and the system answers three questions: what type of document
+      it is, which structured fields it contains, and whether that extraction can be trusted or
+      needs a human. The third one is what turns a machine learning demo into a workflow — it
+      mirrors the document control and master data process I ran at Jabil Healthcare, where the
+      real cost is not making a mistake but not knowing you made one.`,
+
+      `Tesseract OCR feeds a document router and a fine-tuned LayoutLMv3 field extractor,
+      benchmarked against a rules-and-regex baseline. An eleven-rule quality engine flags missing
+      fields, format violations, arithmetic that does not add up, low OCR confidence and purchase
+      orders absent from the master data, routing those documents to a review queue with the
+      reason attached. The review threshold is calibrated on a validation split against a declared
+      escape-rate tolerance, never on the test set.`,
+
+      `The headline finding contradicts the hypothesis the project started with. On real scanned
+      documents LayoutLMv3 beats the baseline at classification by 7.6 points (85.3% vs 77.7%,
+      McNemar p<0.001). On field extraction it wins on layouts it saw in training (0.920 vs 0.861
+      exact match) and loses on an unseen layout (0.508 vs 0.580). Token-F1 of 96.5 on seen
+      templates against 68-72 on unseen ones identifies the cause: with only three template
+      families, the model memorises layout instead of learning label-value relations. The fix is
+      data diversity, not a bigger model.`,
+
+      `Built to resist inflated metrics: template families and entity pools are disjoint across
+      splits and enforced by tests, extraction is reported at three levels side by side (token-F1,
+      end-to-end exact match, and the OCR ceiling that bounds both), and a domain-shift probe
+      measures what the router does on real scanned invoices — it classifies 0% of them correctly,
+      which is exactly how much of its in-domain accuracy came from clean rendering. FUNSD
+      entity-F1 of 89.84 against 90.29 published anchors the whole stack to an external benchmark.`,
     ],
   },
 ];

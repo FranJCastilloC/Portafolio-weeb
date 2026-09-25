@@ -84,18 +84,31 @@ function ProjectModal({ project, onClose }) {
             <Meta label="Stack" value={project.languages.join(", ")} />
           </dl>
 
-          {project.previewLink ? (
-            <a
-              href={project.previewLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded bg-accent px-5 py-2.5 font-mono text-[0.8rem] font-medium text-black transition-transform hover:-translate-y-0.5"
-            >
-              Open project
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <path d="M6 3h7v7M13 3L3.5 12.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
+          {project.previewLink || project.repoLink ? (
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {project.previewLink && (
+                <a
+                  href={project.previewLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded bg-accent px-5 py-2.5 font-mono text-[0.8rem] font-medium text-black transition-transform hover:-translate-y-0.5"
+                >
+                  {project.previewLabel || "Open project"}
+                  <ArrowOut />
+                </a>
+              )}
+              {project.repoLink && (
+                <a
+                  href={project.repoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded border border-accent/45 bg-accent/10 px-5 py-2.5 font-mono text-[0.8rem] text-accent transition-colors hover:bg-accent/20"
+                >
+                  View code
+                  <ArrowOut />
+                </a>
+              )}
+            </div>
           ) : (
             <p className="mt-6 inline-block rounded border border-line px-4 py-2 font-mono text-[0.75rem] text-muted">
               Work in progress — no public link yet
@@ -104,6 +117,14 @@ function ProjectModal({ project, onClose }) {
         </div>
       </>
     </Modal>
+  );
+}
+
+function ArrowOut() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path d="M6 3h7v7M13 3L3.5 12.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
