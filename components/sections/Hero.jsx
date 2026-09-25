@@ -5,26 +5,21 @@ import { useEffect, useState } from "react";
 import MonteCarloVaR from "@/components/charts/MonteCarloVaR";
 import CountUp from "@/components/ui/CountUp";
 import { socialMediaData } from "@/data/socials";
+import { portfolioData } from "@/data/portfolioData";
+import { blogData } from "@/data/blogs";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
-const ROLES = [
-  "Machine Learning Engineer",
-  "Data Scientist",
-  "Deep Learning / PyTorch",
-  "Risk Analyst",
-  "AI Postgrad",
-];
-
-function RoleTyper() {
+function RoleTyper({ roles }) {
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setText(ROLES[0]);
+      setText(roles[0]);
       return;
     }
-    const full = ROLES[index];
+    const full = roles[index];
     const complete = text === full;
 
     if (!deleting && complete) {
@@ -33,7 +28,7 @@ function RoleTyper() {
     }
     if (deleting && text === "") {
       setDeleting(false);
-      setIndex((i) => (i + 1) % ROLES.length);
+      setIndex((i) => (i + 1) % roles.length);
       return;
     }
 
@@ -42,22 +37,29 @@ function RoleTyper() {
       deleting ? 38 : 72
     );
     return () => clearTimeout(step);
-  }, [text, deleting, index]);
+  }, [text, deleting, index, roles]);
 
   return (
-    <span className="caret text-accent text-glow" aria-label={ROLES.join(", ")}>
+    <span className="caret text-accent text-glow" aria-label={roles.join(", ")}>
       {text}
     </span>
   );
 }
 
-const STATS = [
-  { value: 5, suffix: "+", label: "Years in data, risk & quality" },
-  { value: 8, suffix: "", label: "ML & analytics projects shipped" },
-  { value: 8, suffix: "", label: "Certifications earned" },
-];
+/* Counted from the data, never typed in: a hard-coded "8" had drifted to
+   overstate certifications (it counted the degree and an exam in progress). */
+const SHIPPED = portfolioData.filter((p) => !p.category.includes("In Progress")).length;
+const EARNED = blogData.filter((c) => c.category !== "University degree" && c.date !== "In Progress").length;
+// Tenure as stated on the CV: 4+ years in total
+const YEARS = 4;
 
 export default function Hero() {
+  const { t, lang } = useLang();
+  const stats = [
+    { value: YEARS, suffix: "+", label: t("hero.stats.years") },
+    { value: SHIPPED, suffix: "", label: t("hero.stats.projects") },
+    { value: EARNED, suffix: "", label: t("hero.stats.certs") },
+  ];
   return (
     <section id="top" className="relative overflow-hidden pt-28 pb-16 sm:pt-32">
       <div aria-hidden className="grid-plane absolute inset-0 opacity-60" />
@@ -87,8 +89,8 @@ export default function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
               </span>
-              Risk Analyst @ Parval
-              <span className="text-muted">· Santo Domingo, DO</span>
+              {t("hero.badge")}
+              <span className="text-muted">· {t("hero.location")}</span>
             </p>
 
             <h1 className="text-[2.6rem] leading-[1.04] font-semibold tracking-tight sm:text-6xl">
@@ -99,16 +101,11 @@ export default function Hero() {
 
             <p className="mt-5 font-mono text-lg sm:text-xl">
               <span className="text-muted">$ </span>
-              <RoleTyper />
+              <RoleTyper key={lang} roles={t("hero.roles")} />
             </p>
 
             <p className="mt-6 max-w-lg text-[0.975rem] leading-relaxed text-ink-2">
-              I build machine learning and deep learning systems on data that has
-              to be right — fine-tuned transformers for NLP, predictive models in
-              PyTorch and scikit-learn, and the evaluation that decides whether a
-              model is actually usable. Day to day I am a Risk Analyst modelling
-              VaR, stress testing and scenario simulation: five years where a
-              number being wrong has consequences.
+              {t("hero.intro")}
             </p>
 
             <p className="mt-5 inline-flex max-w-full items-center gap-2.5 rounded border border-line bg-surface/60 px-3.5 py-2 font-mono text-[0.72rem] text-ink-2">
@@ -117,7 +114,7 @@ export default function Hero() {
                 <path d="M3.6 6.4v3.9c0 .9 2 2.1 4.4 2.1s4.4-1.2 4.4-2.1V6.4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="whitespace-nowrap">
-                Studying an <span className="text-accent">MSc in AI Development</span>
+                {t("hero.mscPre")} <span className="text-accent">{t("hero.mscEm")}</span>
               </span>
               <span className="hidden whitespace-nowrap text-muted xl:inline">· UAX</span>
             </p>
@@ -127,7 +124,7 @@ export default function Hero() {
                 href="#projects"
                 className="group inline-flex items-center gap-2 rounded bg-accent px-5 py-2.5 font-mono text-[0.82rem] font-medium text-black transition-transform hover:-translate-y-0.5"
               >
-                View projects
+                {t("hero.viewProjects")}
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform group-hover:translate-x-0.5">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -136,7 +133,7 @@ export default function Hero() {
                 href="#contact"
                 className="rounded border border-line bg-surface px-5 py-2.5 font-mono text-[0.82rem] text-ink-2 transition-colors hover:border-accent/40 hover:text-ink"
               >
-                Get in touch
+                {t("hero.getInTouch")}
               </a>
 
               <ul className="ml-1 flex items-center gap-1">
@@ -157,7 +154,7 @@ export default function Hero() {
             </div>
 
             <dl className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded border border-line bg-line">
-              {STATS.map((s) => (
+              {stats.map((s) => (
                 <div key={s.label} className="bg-surface px-4 py-3.5">
                   <dd className="num text-2xl font-semibold text-ink">
                     <CountUp to={s.value} suffix={s.suffix} />
@@ -176,7 +173,7 @@ export default function Hero() {
         >
           <MonteCarloVaR />
           <p className="mt-2.5 text-center font-mono text-[0.68rem] text-muted">
-            Illustrative simulation — the method I run daily on real books.
+            {t("hero.chartCaption")}
           </p>
         </motion.div>
       </div>

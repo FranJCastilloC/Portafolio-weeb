@@ -5,6 +5,7 @@ import emailjs from "@emailjs/browser";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import { contactData } from "@/data/contactData";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 /* EmailJS publishable identifiers — designed to be exposed client-side. */
 const EMAILJS = {
@@ -21,6 +22,7 @@ const FIELDS = [
 export default function Contact() {
   const form = useRef(null);
   const [status, setStatus] = useState("idle");
+  const { t } = useLang();
 
   const send = async (e) => {
     e.preventDefault();
@@ -49,14 +51,13 @@ export default function Contact() {
       className="relative scroll-mt-20 border-t border-line bg-surface/30 py-20"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="09" kicker="Say hello" title="Get in touch" />
+        <SectionHeading index="09" kicker={t("sections.contact.kicker")} title={t("sections.contact.title")} />
 
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <Reveal>
             <div>
               <p className="max-w-sm text-[0.95rem] leading-relaxed text-ink-2">
-                Open to conversations about risk analytics, data science roles and
-                collaboration on quantitative projects.
+                {t("contact.intro")}
               </p>
 
               <ul className="mt-7 space-y-px overflow-hidden rounded border border-line bg-line">
@@ -69,7 +70,7 @@ export default function Contact() {
                         : null;
                   const body = (
                     <>
-                      <span className="tag w-[4.5rem] shrink-0">{c.text.label}</span>
+                      <span className="tag w-[5.5rem] shrink-0">{t(`about.facts.${c.text.label}`)}</span>
                       <span className="font-mono text-[0.8rem] break-all text-ink-2 transition-colors group-hover:text-accent">
                         {c.text.value}
                       </span>
@@ -97,7 +98,7 @@ export default function Contact() {
                 {FIELDS.map((f) => (
                   <label key={f.name} className="block">
                     <span className="tag mb-2 block">
-                      {f.label} <span className="text-accent">*</span>
+                      {t(`contact.fields.${f.name}`)} <span className="text-accent">*</span>
                     </span>
                     <input
                       required
@@ -112,7 +113,7 @@ export default function Contact() {
 
               <label className="mt-5 block">
                 <span className="tag mb-2 block">
-                  message <span className="text-accent">*</span>
+                  {t("contact.fields.message")} <span className="text-accent">*</span>
                 </span>
                 <textarea
                   required
@@ -128,17 +129,15 @@ export default function Contact() {
                   disabled={status === "sending"}
                   className="inline-flex items-center gap-2 rounded bg-accent px-6 py-2.5 font-mono text-[0.82rem] font-medium text-black transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:translate-y-0"
                 >
-                  {status === "sending" ? "Sending…" : "Send message"}
+                  {status === "sending" ? t("contact.sending") : t("contact.send")}
                 </button>
 
                 <p aria-live="polite" className="font-mono text-[0.76rem]">
                   {status === "sent" && (
-                    <span className="text-accent">✓ Sent — I&apos;ll reply shortly.</span>
+                    <span className="text-accent">{t("contact.sent")}</span>
                   )}
                   {status === "error" && (
-                    <span className="text-neg">
-                      ✕ Couldn&apos;t send. Email me directly instead.
-                    </span>
+                    <span className="text-neg">{t("contact.error")}</span>
                   )}
                 </p>
               </div>

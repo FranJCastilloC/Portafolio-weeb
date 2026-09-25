@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { easeOut, useInView, useTimeline } from "@/components/hooks/motion";
 import { gaussian, mulberry32 } from "@/lib/ml/random";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 /* 500 paths so the 1% quantile is actually estimable — at 64 it degenerates to
    the single worst draw and VaR equals ES. Only a subsample is stroked. */
@@ -67,6 +68,7 @@ function simulate(seed) {
 }
 
 export default function MonteCarloVaR() {
+  const { t } = useLang();
   const frameRef = useRef(null);
   const svgRef = useRef(null);
   const [seed, setSeed] = useState(BASE_SEED);
@@ -170,7 +172,7 @@ export default function MonteCarloVaR() {
           Monte Carlo VaR
           <span className="text-muted">
             {" "}
-            · {PATHS} paths · {Math.ceil(PATHS / DRAW_EVERY)} shown · 252d
+            · {PATHS} {t("mc.paths")} · {Math.ceil(PATHS / DRAW_EVERY)} {t("mc.shown")} · 252d
           </span>
         </h3>
         <div className="flex items-center gap-3">
@@ -188,7 +190,7 @@ export default function MonteCarloVaR() {
             <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3.6H9.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Re-simulate
+            {t("mc.resimulate")}
           </button>
         </div>
       </figcaption>
@@ -199,7 +201,7 @@ export default function MonteCarloVaR() {
           viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
           className="w-full touch-pan-y"
           role="img"
-          aria-label={`Monte Carlo simulation of ${PATHS} geometric Brownian motion price paths over 252 trading days. 99% Value at Risk ${sim.varPct.toFixed(2)} percent, expected shortfall ${sim.esPct.toFixed(2)} percent.`}
+          aria-label={t("mc.aria")(PATHS, sim.varPct.toFixed(2), sim.esPct.toFixed(2))}
           onPointerMove={onMove}
           onPointerLeave={() => setHover(null)}
         >
@@ -277,7 +279,7 @@ export default function MonteCarloVaR() {
           <g fill="var(--color-muted)" fontSize="9.5" fontFamily="var(--font-mono)">
             <text x={PLOT.x0} y={PLOT.y1 + 20}>t = 0</text>
             <text x={PLOT.x1} y={PLOT.y1 + 20} textAnchor="end">t = 252d</text>
-            <text x={HIST.x0} y={PLOT.y1 + 20}>terminal dist.</text>
+            <text x={HIST.x0} y={PLOT.y1 + 20}>{t("mc.terminal")}</text>
           </g>
         </svg>
 
@@ -289,20 +291,20 @@ export default function MonteCarloVaR() {
               transform: hoverX > VIEW.w * 0.45 ? "translateX(calc(-100% - 10px))" : "translateX(10px)",
             }}
           >
-            <p className="mb-1.5 text-ink">Day {hover.t}</p>
+            <p className="mb-1.5 text-ink">{t("mc.day")} {hover.t}</p>
             <p className="flex justify-between text-ink-2">
               <span className="flex items-center gap-1.5">
                 <span aria-hidden className="h-2 w-2 rounded-[1px] bg-accent" />
-                median
+                {t("mc.medianShort")}
               </span>
               <span className="num text-ink">{pct(hover.p50)}</span>
             </p>
             <p className="mt-0.5 flex justify-between text-ink-2">
-              <span>5th pct</span>
+              <span>{t("mc.p05")}</span>
               <span className="num text-ink">{pct(hover.p05)}</span>
             </p>
             <p className="mt-0.5 flex justify-between text-ink-2">
-              <span>95th pct</span>
+              <span>{t("mc.p95")}</span>
               <span className="num text-ink">{pct(hover.p95)}</span>
             </p>
           </div>
@@ -310,22 +312,21 @@ export default function MonteCarloVaR() {
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-3">
-        <Key color="var(--color-accent)" label="Median path" />
-        <Key color="var(--color-s2)" label="Simulated paths" dim />
-        <Key color="var(--color-neg)" label="Loss tail (1%)" />
+        <Key color="var(--color-accent)" label={t("mc.median")} />
+        <Key color="var(--color-s2)" label={t("mc.simulated")} dim />
+        <Key color="var(--color-neg)" label={t("mc.lossTail")} />
         <span className="ml-auto font-mono text-[0.6875rem] text-muted">
           ES <span className="text-ink-2">{sim.esPct.toFixed(2)}%</span>
         </span>
       </div>
 
       <table className="sr-only">
-        <caption>Simulated return distribution by horizon</caption>
+        <caption>{t("mc.tableCaption")}</caption>
         <thead>
           <tr>
-            <th scope="col">Day</th>
-            <th scope="col">5th percentile</th>
-            <th scope="col">Median</th>
-            <th scope="col">95th percentile</th>
+            {t("mc.cols").map((c) => (
+              <th key={c} scope="col">{c}</th>
+            ))}
           </tr>
         </thead>
         <tbody>

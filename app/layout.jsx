@@ -1,5 +1,8 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { profileInfo } from "@/data/profileInfo";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
+import { languageBootScript } from "@/lib/i18n/boot";
+import SkipLink from "@/components/ui/SkipLink";
 import "./globals.css";
 
 const sans = Inter({
@@ -57,15 +60,17 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    // The boot script sets lang/data-lang before hydration, so the attributes
+    // legitimately differ from the prerendered HTML
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: languageBootScript }} />
+      </head>
       <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
-        >
-          Skip to content
-        </a>
-        {children}
+        <LanguageProvider>
+          <SkipLink />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

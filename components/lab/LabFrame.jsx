@@ -1,4 +1,7 @@
+"use client";
+
 import { forwardRef } from "react";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 const LabFrame = forwardRef(function LabFrame(
   { file, title, status, actions, children, footer, className = "" },
@@ -56,13 +59,10 @@ export function LabButton({ children, onClick, active }) {
 }
 
 export function RunState({ state }) {
-  const map = {
-    running: ["bg-accent", "running"],
-    done: ["bg-s2", "converged"],
-    paused: ["bg-muted", "paused"],
-    idle: ["bg-muted", "waiting"],
-  };
-  const [dot, label] = map[state] ?? map.idle;
+  const { t } = useLang();
+  const dots = { running: "bg-accent", done: "bg-s2", paused: "bg-muted", idle: "bg-muted" };
+  const key = dots[state] ? state : "idle";
+  const [dot, label] = [dots[key], t(`run.${key}`)];
   return (
     <>
       <span className="relative flex h-1.5 w-1.5">

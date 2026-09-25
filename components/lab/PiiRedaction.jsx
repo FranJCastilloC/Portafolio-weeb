@@ -1,45 +1,51 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import LabFrame, { Key, LabButton, RunState } from "@/components/lab/LabFrame";
 import { useFrameLoop, useInView, useReducedMotion } from "@/components/hooks/motion";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 /* Colour encodes which layer of the hybrid pipeline caught the entity (three
    hues, validated all-pairs); the entity type is always written out, so five
    types never have to be told apart by colour. */
 const LAYERS = {
-  regex: { label: "Rules + regex", color: "#2b90d9" },
-  presidio: { label: "Presidio", color: "#c98500" },
-  model: { label: "Fine-tuned DistilBERT", color: "#0ca772" },
+  regex: { color: "#2b90d9" },
+  presidio: { color: "#c98500" },
+  model: { color: "#0ca772" },
 };
 
-// Fictional text: example.com domain, 555 number, documentation-sample IBAN
-const SEGMENTS = [
-  { t: "Hi, this is " },
-  { t: "Laura Méndez", type: "PERSON", layer: "model" },
-  { t: ". I was charged twice on account " },
-  { t: "ES91 2100 0418 4502 0005 1332", type: "IBAN", layer: "regex" },
-  { t: " last week. Please call me at " },
-  { t: "+1 (809) 555-0142", type: "PHONE", layer: "presidio" },
-  { t: " or write to " },
-  { t: "laura.mendez@example.com", type: "EMAIL", layer: "regex" },
-  { t: ". My ID number is " },
-  { t: "402-1234567-8", type: "NATIONAL_ID", layer: "regex" },
-  { t: " and I live near " },
-  { t: "Avenida Winston Churchill", type: "LOCATION", layer: "model" },
-  { t: "." },
+/* Fictional text (example.com domain, 555 number, documentation-sample IBAN),
+   one string per segment in lib/i18n/ui.js. Entities keep their type and
+   detecting layer in both languages; only the surrounding prose changes. */
+const SPEC = [
+  {},
+  { type: "PERSON", layer: "model" },
+  {},
+  { type: "IBAN", layer: "regex" },
+  {},
+  { type: "PHONE", layer: "presidio" },
+  {},
+  { type: "EMAIL", layer: "regex" },
+  {},
+  { type: "NATIONAL_ID", layer: "regex" },
+  {},
+  { type: "LOCATION", layer: "model" },
+  {},
 ];
-
-const ENTITIES = SEGMENTS.map((s, i) => ({ ...s, i })).filter((s) => s.type);
-const TOTAL_CHARS = SEGMENTS.reduce((n, s) => n + s.t.length, 0);
+const ENTITY_COUNT = SPEC.filter((s) => s.type).length;
 
 // Timeline, in seconds
 const SCAN = 5.2;
 const REDACT_AT = SCAN + 0.9;
 const REDACT_GAP = 0.3;
-const HOLD_UNTIL = REDACT_AT + ENTITIES.length * REDACT_GAP + 4.5;
+const HOLD_UNTIL = REDACT_AT + ENTITY_COUNT * REDACT_GAP + 4.5;
 
 export default function PiiRedaction() {
+  const { t, lang } = useLang();
+  const SEGMENTS = useMemo(() => t("pii.sample").map((text, i) => ({ t: text, ...SPEC[i] })), [t]);
+  const ENTITIES = useMemo(() => SEGMENTS.map((s, i) => ({ ...s, i })).filter((s) => s.type), [SEGMENTS]);
+  const TOTAL_CHARS = useMemo(() => SEGMENTS.reduce((n, s) => n + s.t.length, 0), [SEGMENTS]);
+  const layerLabel = (key) => t(`pii.layers.${key}`);
   const frameRef = useRef(null);
   const inView = useInView(frameRef, { rootMargin: "0px 0px -15% 0px" });
   const reduced = useReducedMotion();
@@ -58,9 +64,13 @@ export default function PiiRedaction() {
   useEffect(() => {
     if (!inView) clock.current.last = null;
   }, [inView]);
+  useEffect(() => {
+    clock.current = { last: null, t: 0 };
+    setTime(0);
+  }, [lang]);
 
-  const t = reduced ? HOLD_UNTIL : time;
-  const cursor = Math.min(t / SCAN, 1) * TOTAL_CHARS;
+  const elapsed = reduced ? HOLD_UNTIL : time;
+  const cursor = Math.min(elapsed / SCAN, 1) * TOTAL_CHARS;
 
   let offset = 0;
   const view = SEGMENTS.map((s, i) => {
@@ -70,7 +80,7 @@ export default function PiiRedaction() {
     const k = ENTITIES.findIndex((e) => e.i === i);
     const detected = cursor >= offset;
     const redacted =
-      manual !== null ? manual === "redacted" : t >= REDACT_AT + k * REDACT_GAP;
+      manual !== null ? manual === "redacted" : elapsed >= REDACT_AT + k * REDACT_GAP;
     return { ...s, i, visibleChars: Math.max(0, Math.min(s.t.length, cursor - start)), detected, redacted };
   });
 
@@ -83,14 +93,14 @@ export default function PiiRedaction() {
       ref={frameRef}
       file="redact.py"
       status={<RunState state={state} />}
-      title="Detecting and redacting PII"
+      title={t("pii.title")}
       actions={
         <>
           <LabButton active={manual === "original"} onClick={() => setManual("original")}>
-            Original
+            {t("pii.original")}
           </LabButton>
           <LabButton active={manual === "redacted"} onClick={() => setManual("redacted")}>
-            Redacted
+            {t("pii.redacted")}
           </LabButton>
           {manual !== null && (
             <LabButton
@@ -100,20 +110,18 @@ export default function PiiRedaction() {
                 setManual(null);
               }}
             >
-              Replay
+              {t("pii.replay")}
             </LabButton>
           )}
         </>
       }
       footer={
         <>
-          An illustrative pass of the hybrid pipeline from my{" "}
+          {t("pii.footerPre")}{" "}
           <a href="#projects" className="text-ink-2 underline decoration-line underline-offset-2 hover:text-accent">
-            PII detection &amp; redaction project
+            {t("pii.footerLink")}
           </a>{" "}
-          on fictional text: deterministic rules catch structured identifiers, Presidio covers
-          common formats, and a fine-tuned transformer handles the entities no pattern can —
-          names and places.
+          {t("pii.footerPost")}
         </>
       }
     >
@@ -152,17 +160,17 @@ export default function PiiRedaction() {
         {scanning && <span className="caret" aria-hidden />}
       </div>
 
-      <ol className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded border border-line bg-line" aria-label="Pipeline layers, in order">
+      <ol className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded border border-line bg-line">
         {Object.entries(LAYERS).map(([key, layer], n) => {
           const total = ENTITIES.filter((e) => e.layer === key).length;
           const hits = found.filter((f) => f.layer === key).length;
           return (
             <li key={key} className="bg-surface px-3 py-2.5">
-              <p className="tag mb-1.5">Layer {n + 1}</p>
-              <Key color={layer.color} label={layer.label} />
+              <p className="tag mb-1.5">{t("pii.layer")} {n + 1}</p>
+              <Key color={layer.color} label={layerLabel(key)} />
               <p className="num mt-1.5 text-[0.95rem] text-ink">
                 {hits}
-                <span className="text-[0.7rem] text-muted">/{total} found</span>
+                <span className="text-[0.7rem] text-muted">/{total} {t("pii.found")}</span>
               </p>
             </li>
           );
@@ -173,8 +181,8 @@ export default function PiiRedaction() {
         <table className="w-full font-mono text-[0.7rem]">
           <thead className="bg-surface-2/60 text-left text-muted">
             <tr>
-              <th scope="col" className="px-3 py-2 font-normal">Entity</th>
-              <th scope="col" className="px-3 py-2 font-normal">Caught by</th>
+              <th scope="col" className="px-3 py-2 font-normal">{t("pii.entity")}</th>
+              <th scope="col" className="px-3 py-2 font-normal">{t("pii.caughtBy")}</th>
             </tr>
           </thead>
           <tbody>
@@ -184,7 +192,7 @@ export default function PiiRedaction() {
                 <tr key={e.i} className="border-t border-line">
                   <td className={`px-3 py-1.5 ${hit ? "text-ink" : "text-muted/50"}`}>{e.type}</td>
                   <td className="px-3 py-1.5">
-                    {hit ? <Key color={LAYERS[e.layer].color} label={LAYERS[e.layer].label} /> : <span className="text-muted/50">—</span>}
+                    {hit ? <Key color={LAYERS[e.layer].color} label={layerLabel(e.layer)} /> : <span className="text-muted/50">—</span>}
                   </td>
                 </tr>
               );

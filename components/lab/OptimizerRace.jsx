@@ -6,6 +6,7 @@ import { useCanvas, useInView, useTimeline } from "@/components/hooks/motion";
 import { OPTIMIZERS, rosenbrock, trajectory } from "@/lib/ml/optimizers";
 import { isoSegments } from "@/lib/ml/contours";
 import { paintField } from "@/components/lab/field";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 const STEPS = 800;
 const DURATION = 4.2;
@@ -18,6 +19,7 @@ const COLORS = { sgd: "#2b90d9", momentum: "#c98500", adam: "#0ca772" };
 const LEVELS = [0.5, 2, 6, 20, 60, 180, 500, 1400];
 
 export default function OptimizerRace() {
+  const { t } = useLang();
   const frameRef = useRef(null);
   const inView = useInView(frameRef, { once: true, rootMargin: "0px 0px -15% 0px" });
   const [start, setStart] = useState(DEFAULT_START);
@@ -163,22 +165,17 @@ export default function OptimizerRace() {
       ref={frameRef}
       file="optimize.py"
       status={<RunState state={state} />}
-      title="Gradient descent, three ways"
+      title={t("opt.title")}
       actions={
         <LabButton onClick={() => restartFrom(DEFAULT_START)}>
           <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden>
             <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3.6H9.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Replay
+          {t("opt.replay")}
         </LabButton>
       }
       footer={
-        <>
-          Rosenbrock&apos;s function — a curved valley that is easy to fall into and slow to
-          follow. Same start, same {STEPS} steps: Adam&apos;s per-parameter step size tracks the
-          valley, momentum overshoots and recovers, plain SGD crawls. Click anywhere on the
-          landscape to race from a new starting point.
-        </>
+        <>{t("opt.footer")(STEPS)}</>
       }
     >
       <div className="relative mx-auto max-w-[26rem]">
@@ -192,7 +189,7 @@ export default function OptimizerRace() {
             if (pt) restartFrom([pt.x, pt.y]);
           }}
           role="img"
-          aria-label={`Contour map of the Rosenbrock function with SGD, momentum and Adam trajectories from start (${start[0].toFixed(2)}, ${start[1].toFixed(2)}), step ${step} of ${STEPS}.`}
+          aria-label={t("opt.aria")(start[0].toFixed(2), start[1].toFixed(2), step, STEPS)}
         />
         {hover && (
           <div
@@ -209,7 +206,7 @@ export default function OptimizerRace() {
             <p>
               f = <span className="text-ink">{rosenbrock(hover.x, hover.y).toFixed(2)}</span>
             </p>
-            <p className="text-muted">click to start here</p>
+            <p className="text-muted">{t("opt.clickHere")}</p>
           </div>
         )}
       </div>
@@ -218,10 +215,10 @@ export default function OptimizerRace() {
         <table className="w-full font-mono text-[0.72rem]">
           <thead className="bg-surface-2/60 text-left">
             <tr className="text-muted">
-              <th scope="col" className="px-3 py-2 font-normal">Optimizer</th>
-              <th scope="col" className="px-3 py-2 text-right font-normal">Step</th>
-              <th scope="col" className="px-3 py-2 text-right font-normal">Loss</th>
-              <th scope="col" className="px-3 py-2 text-right font-normal">Dist. to min</th>
+              <th scope="col" className="px-3 py-2 font-normal">{t("opt.cols.optimizer")}</th>
+              <th scope="col" className="px-3 py-2 text-right font-normal">{t("opt.cols.step")}</th>
+              <th scope="col" className="px-3 py-2 text-right font-normal">{t("opt.cols.loss")}</th>
+              <th scope="col" className="px-3 py-2 text-right font-normal">{t("opt.cols.dist")}</th>
             </tr>
           </thead>
           <tbody>

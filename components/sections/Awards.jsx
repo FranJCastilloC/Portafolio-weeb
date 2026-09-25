@@ -5,16 +5,19 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Modal from "@/components/ui/Modal";
-import { awards } from "@/data/awards";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 const clean = (s = "") => s.replace(/\s+/g, " ").trim();
 
 export default function Awards() {
   const [open, setOpen] = useState(null);
+  const { t } = useLang();
+  const { awards } = useContent();
 
   return (
     <section id="awards" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="05" kicker="Recognition" title="Awards" />
+      <SectionHeading index="05" kicker={t("sections.awards.kicker")} title={t("sections.awards.title")} />
 
       <ul className="grid gap-4 md:grid-cols-2">
         {awards.map((a, i) => (

@@ -2,18 +2,20 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { books } from "@/data/books";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 const clean = (s = "") => s.replace(/\s+/g, " ").trim();
 
 export default function Reading() {
+  const { t } = useLang();
+  const { books } = useContent();
   return (
     <section id="reading" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="08" kicker="Self-study" title="Reading" />
+      <SectionHeading index="08" kicker={t("sections.reading.kicker")} title={t("sections.reading.title")} />
 
       <p className="mb-8 max-w-2xl text-[0.92rem] leading-relaxed text-ink-2">
-        The machine learning and deep learning groundwork behind the work above —
-        what I read, and what I took from each one.
+        {t("reading.intro")}
       </p>
 
       <ul className="grid gap-4 md:grid-cols-2">

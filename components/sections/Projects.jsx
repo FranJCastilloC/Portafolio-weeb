@@ -5,7 +5,8 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Modal from "@/components/ui/Modal";
-import { portfolioData, filterButtons } from "@/data/portfolioData";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 /* Categorical slots from the validated palette. Every chip also carries its
    label, so hue never carries the meaning on its own. */
@@ -22,7 +23,13 @@ const TAG_COLOR = {
 const colorFor = (t) => TAG_COLOR[t] ?? "var(--color-muted)";
 const clean = (s = "") => s.replace(/\s+/g, " ").trim();
 
+/* Old projects carry a single previewLink; newer ones list every public
+   artefact. Either way the modal renders one list, demo first. */
+const linksOf = (p) => p.links ?? (p.previewLink ? [{ kind: "open", href: p.previewLink }] : []);
+const hasDemo = (p) => linksOf(p).some((l) => l.kind === "demo");
+
 function Chip({ label, subtle }) {
+  const { t } = useLang();
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-[0.65rem] ${
@@ -34,12 +41,14 @@ function Chip({ label, subtle }) {
         className="h-1.5 w-1.5 rounded-[1px]"
         style={{ background: colorFor(label) }}
       />
-      {label}
+      {t(`projects.filters.${label}`) ?? label}
     </span>
   );
 }
 
 function ProjectModal({ project, onClose }) {
+  const { t } = useLang();
+  const links = linksOf(project);
   return (
     <Modal label={clean(project.title)} onClose={onClose}>
       <>
@@ -79,39 +88,33 @@ function ProjectModal({ project, onClose }) {
           </div>
 
           <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-3">
-            <Meta label="Client" value={project.client} />
-            <Meta label="Type" value={clean(project.project)} />
-            <Meta label="Stack" value={project.languages.join(", ")} />
+            <Meta label={t("projects.client")} value={project.client} />
+            <Meta label={t("projects.type")} value={clean(project.project)} />
+            <Meta label={t("projects.stack")} value={project.languages.join(", ")} />
           </dl>
 
-          {project.previewLink || project.repoLink ? (
+          {links.length ? (
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              {project.previewLink && (
+              {links.map((l, i) => (
                 <a
-                  href={project.previewLink}
+                  key={l.href}
+                  href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded bg-accent px-5 py-2.5 font-mono text-[0.8rem] font-medium text-black transition-transform hover:-translate-y-0.5"
+                  className={
+                    i === 0
+                      ? "inline-flex items-center gap-2 rounded bg-accent px-5 py-2.5 font-mono text-[0.8rem] font-medium text-black transition-transform hover:-translate-y-0.5"
+                      : "inline-flex items-center gap-2 rounded border border-accent/45 bg-accent/10 px-5 py-2.5 font-mono text-[0.8rem] text-accent transition-colors hover:bg-accent/20"
+                  }
                 >
-                  {project.previewLabel || "Open project"}
+                  {t(`projects.links.${l.kind}`)}
                   <ArrowOut />
                 </a>
-              )}
-              {project.repoLink && (
-                <a
-                  href={project.repoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded border border-accent/45 bg-accent/10 px-5 py-2.5 font-mono text-[0.8rem] text-accent transition-colors hover:bg-accent/20"
-                >
-                  View code
-                  <ArrowOut />
-                </a>
-              )}
+              ))}
             </div>
           ) : (
             <p className="mt-6 inline-block rounded border border-line px-4 py-2 font-mono text-[0.75rem] text-muted">
-              Work in progress — no public link yet
+              {t("projects.wip")}
             </p>
           )}
         </div>
@@ -138,16 +141,22 @@ function Meta({ label, value }) {
 }
 
 export default function Projects() {
+  const { t } = useLang();
+  const { portfolioData, filterButtons } = useContent();
   const [filter, setFilter] = useState("All");
-  const [open, setOpen] = useState(null);
+  const [openId, setOpenId] = useState(null);
 
-  const visible = useMemo(
-    () =>
-      filter === "All"
-        ? portfolioData
-        : portfolioData.filter((p) => p.category.includes(filter)),
-    [filter]
+  // Projects with a live demo lead; Array.sort is stable, so data order holds within each group
+  const ordered = useMemo(
+    () => [...portfolioData].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))),
+    [portfolioData]
   );
+  const visible = useMemo(
+    () => (filter === "All" ? ordered : ordered.filter((p) => p.category.includes(filter))),
+    [filter, ordered]
+  );
+  // Look the open project up by id so its text follows a language switch
+  const open = openId === null ? null : portfolioData.find((p) => p.id === openId);
 
   return (
     <section
@@ -155,7 +164,7 @@ export default function Projects() {
       className="relative scroll-mt-20 border-y border-line bg-surface/30 py-20"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="06" kicker="Selected work" title="Projects" />
+        <SectionHeading index="06" kicker={t("sections.projects.kicker")} title={t("sections.projects.title")} />
 
         <div className="mb-8 flex flex-wrap items-center gap-2">
           {filterButtons.map((b) => {
@@ -177,7 +186,7 @@ export default function Projects() {
                     : "border-line text-muted hover:border-line hover:text-ink-2"
                 }`}
               >
-                {b.text}
+                {t(`projects.filters.${b.text}`) ?? b.text}
                 <span className="ml-1.5 opacity-55">{count}</span>
               </button>
             );
@@ -197,7 +206,7 @@ export default function Projects() {
               >
                 <button
                   type="button"
-                  onClick={() => setOpen(p)}
+                  onClick={() => setOpenId(p.id)}
                   className="panel group h-full w-full overflow-hidden text-left transition-colors hover:border-accent/35"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
@@ -221,6 +230,15 @@ export default function Projects() {
                         <Chip key={c} label={c} />
                       ))}
                     </span>
+                    {hasDemo(p) && (
+                      <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded border border-accent/45 bg-bg/80 px-2 py-0.5 font-mono text-[0.65rem] text-accent backdrop-blur">
+                        <span aria-hidden className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                        </span>
+                        {t("projects.liveDemo")}
+                      </span>
+                    )}
                   </div>
 
                   <div className="p-4">
@@ -231,7 +249,7 @@ export default function Projects() {
                       {clean(p.subtitle)}
                     </p>
                     <span className="mt-3.5 inline-flex items-center gap-1.5 font-mono text-[0.72rem] text-accent opacity-0 transition-opacity group-hover:opacity-100">
-                      Read case
+                      {t("projects.readCase")}
                       <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden>
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -245,7 +263,7 @@ export default function Projects() {
       </div>
 
       <AnimatePresence>
-        {open && <ProjectModal project={open} onClose={() => setOpen(null)} />}
+        {open && <ProjectModal project={open} onClose={() => setOpenId(null)} />}
       </AnimatePresence>
     </section>
   );

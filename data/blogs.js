@@ -81,7 +81,7 @@ export const blogData = [
     id: 5,
     imgSrc: "/assets/img/blog/cisco.jpg",
     bgClass: "bg-prink",
-    date: "Octuber 2023",
+    date: "October 2023",
     category: "Certificate",
     title: "Introduction to Data Science  ",
     previewLink: "https://www.credly.com/badges/6acc7f9d-e4b0-47df-beb1-5ef541557a0b/print",
@@ -104,7 +104,7 @@ export const blogData = [
     bgClass: "bg-prink",
     date: "September 2023",
     category: "Certificate",
-    title: "Introduccion a las Bases de Datos ",
+    title: "Introduction to Databases",
     previewLink: "https://orbi.edu.do/orbi/educacionpermanente/cursosaprobados/qr/245083/68552",
     previewName: "www.itla.com",
     desc: [
@@ -118,7 +118,7 @@ export const blogData = [
   },
 
   {
-    id: 6,
+    id: 7,
     imgSrc: "/assets/img/blog/PL-300.jpg",
     bgClass: "bg-prink",
     date: "In Progress",
@@ -137,7 +137,7 @@ export const blogData = [
   },
 
   {
-    id: 7,
+    id: 8,
     imgSrc: "/assets/img/blog/Py.jpg",
     bgClass: "bg-prink",
     date: "April 2024",

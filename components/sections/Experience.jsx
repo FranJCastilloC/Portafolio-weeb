@@ -1,9 +1,12 @@
+"use client";
+
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { experiences } from "@/data/experience";
-import { education } from "@/data/education";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 function Track({ label, entries }) {
+  const { t } = useLang();
   return (
     <div>
       <p className="tag mb-6">{label}</p>
@@ -40,7 +43,7 @@ function Track({ label, entries }) {
               )}
               {e.current && (
                 <span className="mt-2.5 inline-block rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[0.62rem] tracking-wide text-accent">
-                  {e.role ? "CURRENT" : "IN PROGRESS"}
+                  {e.role ? t("experience.current") : t("experience.inProgress")}
                 </span>
               )}
             </li>
@@ -52,12 +55,14 @@ function Track({ label, entries }) {
 }
 
 export default function Experience() {
+  const { t } = useLang();
+  const { experiences, education } = useContent();
   return (
     <section id="experience" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="04" kicker="Track record" title="Experience & education" />
+      <SectionHeading index="04" kicker={t("sections.experience.kicker")} title={t("sections.experience.title")} />
       <div className="grid gap-12 sm:grid-cols-2 sm:gap-10">
-        <Track label="Experience" entries={experiences} />
-        <Track label="Education" entries={education} />
+        <Track label={t("experience.experience")} entries={experiences} />
+        <Track label={t("experience.education")} entries={education} />
       </div>
     </section>
   );

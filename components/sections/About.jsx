@@ -1,16 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { bioData } from "@/data/bioData";
-import { contactData } from "@/data/contactData";
-import { profileInfo } from "@/data/profileInfo";
-
-const FACTS = contactData.filter((c) => c.text.label !== "Birthday");
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 export default function About() {
+  const { t } = useLang();
+  const { bioData, contactData, profileInfo } = useContent();
+  const facts = contactData.filter((c) => c.text.label !== "Birthday");
+
   return (
     <section id="about" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="01" kicker="Profile" title="About" />
+      <SectionHeading index="01" kicker={t("sections.about.kicker")} title={t("sections.about.title")} />
 
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
         <Reveal>
@@ -42,9 +45,9 @@ export default function About() {
             </div>
 
             <dl className="mt-4 divide-y divide-line overflow-hidden rounded border border-line bg-surface">
-              {FACTS.map((f) => (
+              {facts.map((f) => (
                 <div key={f.id} className="flex items-baseline gap-3 px-4 py-3">
-                  <dt className="tag w-[4.5rem] shrink-0">{f.text.label}</dt>
+                  <dt className="tag w-[5.5rem] shrink-0">{t(`about.facts.${f.text.label}`)}</dt>
                   <dd className="font-mono text-[0.8rem] break-all text-ink-2">
                     {f.text.value}
                   </dd>
@@ -67,9 +70,7 @@ export default function About() {
           <Reveal delay={0.24}>
             <blockquote className="panel mt-8 p-5">
               <p className="font-mono text-[0.85rem] leading-relaxed text-ink-2">
-                <span className="text-accent">{">"}</span> Industrial engineering
-                taught me to model a process. Risk analysis taught me to price its
-                uncertainty. The AI master&apos;s is teaching me to automate both.
+                <span className="text-accent">{">"}</span> {t("about.quote")}
               </p>
             </blockquote>
           </Reveal>

@@ -1,23 +1,43 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { LANGS, useLang } from "@/lib/i18n/LanguageProvider";
 
-const LINKS = [
-  { id: "about", label: "About" },
-  { id: "stack", label: "Stack" },
-  { id: "lab", label: "Lab" },
-  { id: "experience", label: "Experience" },
-  { id: "awards", label: "Awards" },
-  { id: "projects", label: "Projects" },
-  { id: "certificates", label: "Certificates" },
-  { id: "reading", label: "Reading" },
-  { id: "contact", label: "Contact" },
-];
+const LINKS = ["about", "stack", "lab", "experience", "awards", "projects", "certificates", "reading", "contact"].map(
+  (id) => ({ id })
+);
+
+function LanguageSwitch() {
+  const { lang, setLang, t } = useLang();
+  return (
+    <div
+      role="group"
+      aria-label={t("nav.language")}
+      className="flex shrink-0 overflow-hidden rounded border border-line font-mono text-[0.7rem]"
+    >
+      {LANGS.map((code) => (
+        <button
+          key={code}
+          type="button"
+          lang={code}
+          onClick={() => setLang(code)}
+          aria-pressed={lang === code}
+          className={`px-2 py-1.5 uppercase transition-colors ${
+            lang === code ? "bg-accent/15 text-accent" : "text-muted hover:text-ink-2"
+          }`}
+        >
+          {code}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default function Nav() {
   const [active, setActive] = useState("about");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -51,7 +71,7 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-5 sm:px-8">
-        <a href="#top" className="group flex items-center gap-2.5" aria-label="Back to top">
+        <a href="#top" className="group flex items-center gap-2.5" aria-label={t("nav.backToTop")}>
           <span className="grid h-7 w-7 place-items-center rounded border border-accent/40 bg-accent/10 font-mono text-[0.7rem] font-bold text-accent">
             FC
           </span>
@@ -61,36 +81,39 @@ export default function Nav() {
         </a>
 
         <ul className="ml-auto hidden items-center gap-1 xl:flex">
-          {LINKS.map(({ id, label }) => (
+          {LINKS.map(({ id }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 aria-current={active === id ? "true" : undefined}
-                className={`relative rounded px-2.5 py-2 font-mono text-[0.78rem] transition-colors ${
+                className={`relative rounded px-2 py-2 font-mono text-[0.76rem] transition-colors ${
                   active === id ? "text-accent" : "text-muted hover:text-ink-2"
                 }`}
               >
                 {active === id && <span aria-hidden className="text-accent/60">/</span>}
-                {label}
+                {t(`nav.${id}`)}
               </a>
             </li>
           ))}
         </ul>
 
+        <div className="ml-auto flex items-center gap-2.5 xl:ml-2">
+          <LanguageSwitch />
         <a
           href="/CV.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto rounded border border-accent/45 bg-accent/10 px-3.5 py-1.5 font-mono text-[0.75rem] text-accent transition-all hover:bg-accent/20 hover:glow-accent xl:ml-0"
+          className="rounded border border-accent/45 bg-accent/10 px-3.5 py-1.5 font-mono text-[0.75rem] text-accent transition-all hover:bg-accent/20 hover:glow-accent"
         >
           CV<span className="hidden sm:inline">.pdf</span>
         </a>
+        </div>
 
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          aria-label="Toggle navigation"
+          aria-label={t("nav.toggle")}
           className="grid h-9 w-9 place-items-center rounded border border-line text-ink-2 xl:hidden"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -105,7 +128,7 @@ export default function Nav() {
 
       {open && (
         <ul className="border-t border-line bg-surface/95 px-5 py-2 backdrop-blur-md xl:hidden">
-          {LINKS.map(({ id, label }) => (
+          {LINKS.map(({ id }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
@@ -114,7 +137,7 @@ export default function Nav() {
                   active === id ? "text-accent" : "text-ink-2"
                 }`}
               >
-                <span className="text-muted">/</span> {label}
+                <span className="text-muted">/</span> {t(`nav.${id}`)}
               </a>
             </li>
           ))}

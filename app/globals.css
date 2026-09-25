@@ -160,3 +160,9 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Set by the language boot script for Spanish visitors until React has
+   re-rendered in Spanish, so the prerendered English never flashes. */
+html[data-i18n-pending] body {
+  visibility: hidden;
+}

@@ -6,6 +6,7 @@ import { useCanvas, useFrameLoop, useInView, useReducedMotion } from "@/componen
 import { createMLP, evaluate, predict, trainEpoch, twoMoons } from "@/lib/ml/mlp";
 import { isoSegments } from "@/lib/ml/contours";
 import { paintField } from "@/components/lab/field";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 const SIZES = [2, 16, 16, 1];
 const LR = 0.01;
@@ -31,6 +32,7 @@ const snapshot = (net) => ({
 });
 
 export default function NeuralNetDemo() {
+  const { t } = useLang();
   const frameRef = useRef(null);
   const inView = useInView(frameRef, { rootMargin: "0px 0px -15% 0px" });
   const reduced = useReducedMotion();
@@ -189,7 +191,7 @@ export default function NeuralNetDemo() {
       ref={frameRef}
       file="train.py"
       status={<RunState state={state} />}
-      title="A neural network, training live in your browser"
+      title={t("nn.title")}
       actions={
         <LabButton
           onClick={() => {
@@ -202,16 +204,11 @@ export default function NeuralNetDemo() {
           <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden>
             <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3.6H9.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Retrain from new weights
+          {t("nn.retrain")}
         </LabButton>
       }
       footer={
-        <>
-          MLP {SIZES.join("→")} · tanh · Adam (lr {LR}) · full-batch · two-moons with noise σ={NOISE},{" "}
-          {train.n} train / {val.n} validation points. Validation loss bottoms out early and then
-          climbs while training loss keeps falling — that gap is overfitting, and the marked epoch
-          is the checkpoint early stopping would keep.
-        </>
+        <>{t("nn.footer")(SIZES.join("→"), LR, NOISE, train.n, val.n)}</>
       }
     >
       <div className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
@@ -222,7 +219,7 @@ export default function NeuralNetDemo() {
             onPointerMove={onMove}
             onPointerLeave={() => setHover(null)}
             role="img"
-            aria-label={`Decision boundary of a neural network classifier on the two-moons dataset at epoch ${epoch}. Train accuracy ${(accuracy.train * 100).toFixed(0)} percent, validation accuracy ${(accuracy.val * 100).toFixed(0)} percent.`}
+            aria-label={t("nn.aria")(epoch, (accuracy.train * 100).toFixed(0), (accuracy.val * 100).toFixed(0))}
           />
           {hover && (
             <div
@@ -233,39 +230,36 @@ export default function NeuralNetDemo() {
                 transform: `translate(${hover.cx > hover.w * 0.6 ? "calc(-100% - 12px)" : "12px"}, -50%)`,
               }}
             >
-              p(class B) <span className="text-ink">{hover.p.toFixed(3)}</span>
+              {t("nn.pClassB")} <span className="text-ink">{hover.p.toFixed(3)}</span>
             </div>
           )}
           <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1.5">
-            <Key color={`rgb(${CLASS_A})`} label="Class A" shape="dot" />
-            <Key color={`rgb(${CLASS_B})`} label="Class B" shape="dot" />
-            <Key color="rgba(231,238,246,0.85)" label="Decision boundary (p = 0.5)" shape="line" />
+            <Key color={`rgb(${CLASS_A})`} label={t("nn.classA")} shape="dot" />
+            <Key color={`rgb(${CLASS_B})`} label={t("nn.classB")} shape="dot" />
+            <Key color="rgba(231,238,246,0.85)" label={t("nn.boundary")} shape="line" />
           </div>
         </div>
 
         <div className="flex flex-col gap-4">
           <dl className="grid grid-cols-3 gap-px overflow-hidden rounded border border-line bg-line">
-            <Stat label="Epoch" value={viewingBest ? h.best.epoch : epoch} sub={`/${MAX_EPOCHS}`} />
-            <Stat label="Train acc" value={`${(accuracy.train * 100).toFixed(1)}%`} />
-            <Stat label="Val acc" value={`${(accuracy.val * 100).toFixed(1)}%`} />
+            <Stat label={t("nn.epoch")} value={viewingBest ? h.best.epoch : epoch} sub={`/${MAX_EPOCHS}`} />
+            <Stat label={t("nn.trainAcc")} value={`${(accuracy.train * 100).toFixed(1)}%`} />
+            <Stat label={t("nn.valAcc")} value={`${(accuracy.val * 100).toFixed(1)}%`} />
           </dl>
 
           {done && h.bestNet && (
             <div className="rounded border border-line bg-surface-2/40 p-3">
-              <p className="tag mb-2">Which weights to ship?</p>
+              <p className="tag mb-2">{t("nn.whichWeights")}</p>
               <div className="flex flex-wrap gap-2">
                 <LabButton active={weights === "final"} onClick={() => setWeights("final")}>
-                  Final · ep {MAX_EPOCHS}
+                  {t("nn.final")} · ep {MAX_EPOCHS}
                 </LabButton>
                 <LabButton active={weights === "best"} onClick={() => setWeights("best")}>
-                  Early-stopped · ep {h.best.epoch}
+                  {t("nn.early")} · ep {h.best.epoch}
                 </LabButton>
               </div>
               <p className="mt-2 text-[0.72rem] leading-relaxed text-muted">
-                The final network bends its boundary around individual noisy points. Validation
-                accuracy barely moves between the two — but validation loss is far lower at the
-                checkpoint, because the final network is confidently wrong near the points it
-                memorised.
+                {t("nn.weightsNote")}
               </p>
             </div>
           )}
@@ -280,6 +274,7 @@ export default function NeuralNetDemo() {
 const LC = { w: 340, h: 176, x0: 30, x1: 330, y0: 12, y1: 150, yMax: 0.8 };
 
 function LossChart({ history, highlightBest }) {
+  const { t } = useLang();
   const svgRef = useRef(null);
   const [hoverEp, setHoverEp] = useState(null);
   const sx = (e) => LC.x0 + (e / MAX_EPOCHS) * (LC.x1 - LC.x0);
@@ -301,10 +296,10 @@ function LossChart({ history, highlightBest }) {
   return (
     <div>
       <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <p className="tag">Loss (binary cross-entropy)</p>
+        <p className="tag">{t("nn.lossTitle")}</p>
         <div className="flex gap-3">
-          <Key color={LOSS_TRAIN} label="train" shape="line" />
-          <Key color={LOSS_VAL} label="validation" shape="line" />
+          <Key color={LOSS_TRAIN} label={t("nn.train")} shape="line" />
+          <Key color={LOSS_VAL} label={t("nn.validation")} shape="line" />
         </div>
       </div>
       <div className="relative">
@@ -315,7 +310,7 @@ function LossChart({ history, highlightBest }) {
           onPointerMove={onMove}
           onPointerLeave={() => setHoverEp(null)}
           role="img"
-          aria-label={`Training and validation loss over ${n} epochs. Best validation loss ${Number.isFinite(best.loss) ? best.loss.toFixed(3) : "n/a"} at epoch ${best.epoch}.`}
+          aria-label={t("nn.lossAria")(n, Number.isFinite(best.loss) ? best.loss.toFixed(3) : "n/a", best.epoch)}
         >
           {[0, 0.2, 0.4, 0.6, 0.8].map((v) => (
             <g key={v}>
@@ -335,7 +330,7 @@ function LossChart({ history, highlightBest }) {
             <g>
               <line x1={sx(best.epoch)} x2={sx(best.epoch)} y1={LC.y0} y2={LC.y1} stroke="var(--color-ink-2)" strokeOpacity="0.4" />
               <text x={sx(best.epoch) + 5} y={LC.y0 + 9} fill="var(--color-ink-2)" fontSize="10" fontFamily="var(--font-mono)">
-                early stop · ep {best.epoch}
+                {t("nn.earlyStop")} {best.epoch}
               </text>
             </g>
           )}
@@ -362,9 +357,9 @@ function LossChart({ history, highlightBest }) {
               transform: sx(hoverEp) > LC.w * 0.55 ? "translateX(calc(-100% - 8px))" : "translateX(8px)",
             }}
           >
-            <p className="text-ink">Epoch {hoverEp}</p>
-            <p className="text-ink-2">train <span className="text-ink">{history.train[hoverEp - 1].toFixed(3)}</span></p>
-            <p className="text-ink-2">val <span className="text-ink">{history.val[hoverEp - 1].toFixed(3)}</span></p>
+            <p className="text-ink">{t("nn.epoch")} {hoverEp}</p>
+            <p className="text-ink-2">{t("nn.train")} <span className="text-ink">{history.train[hoverEp - 1].toFixed(3)}</span></p>
+            <p className="text-ink-2">{t("nn.val")} <span className="text-ink">{history.val[hoverEp - 1].toFixed(3)}</span></p>
           </div>
         )}
       </div>

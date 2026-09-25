@@ -15,9 +15,9 @@ export const bioData = {
   descThree: `In risk I design and validate quantitative models — VaR (historical,
   Monte Carlo and covariance), stress testing, sensitivity analysis, scenario
   simulation and backtesting — and automate the reporting around them with Python,
-  SQL and Power BI. Five years of quality control and master data work in regulated
-  environments, financial services and medical device manufacturing, taught me the
-  part most ML work underestimates: a model is only as trustworthy as the data
+  SQL and Power BI. More than four years across risk analysis, quality control and
+  document control in regulated environments — financial services and medical device
+  manufacturing — taught me the part most ML work underestimates: a model is only as trustworthy as the data
   validation underneath it.`,
 
   descFour: `I am currently pursuing a Master's Degree in Artificial Intelligence

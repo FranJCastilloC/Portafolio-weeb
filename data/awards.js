@@ -4,7 +4,7 @@ export const awards = [
     title: "Talento del Año 2025",
     issuer: "Parallax Valores (Parval)",
     date: "2025",
-    role: "Analista de Riesgos",
+    role: "Risk Analyst",
     imgSrc: "/assets/img/awards/talento-del-ano-2025.jpg",
     metric: "Company-wide recognition",
     desc: [

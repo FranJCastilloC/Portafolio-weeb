@@ -190,10 +190,11 @@ export const portfolioData = [
     project: "Machine Learning Engineer",
     languages: ["Python", "PyTorch", "scikit-learn", "Streamlit"],
     client: "Personal",
-    previewLink: "https://franjcastilloc-sistema-de-detecci-n-de--appstreamlit-app-tamqnx.streamlit.app/",
-    previewLabel: "Open live demo",
-    previewName: "Streamlit demo",
-    repoLink: "https://github.com/FranJCastilloC/Sistema-de-Detecci-n-de-Anomal-as-y-Scoring-de-Datos",
+    featured: true,
+    links: [
+      { kind: "demo", href: "https://franjcastilloc-sistema-de-detecci-n-de--appstreamlit-app-tamqnx.streamlit.app/" },
+      { kind: "code", href: "https://github.com/FranJCastilloC/Sistema-de-Detecci-n-de-Anomal-as-y-Scoring-de-Datos" },
+    ],
     desc: [
       `An audit engine for large tabular financial and ERP datasets. It scores a batch
       for data quality across five dimensions, detects anomalies at record level with a
@@ -224,10 +225,12 @@ export const portfolioData = [
     project: "Machine Learning / NLP",
     languages: ["Python", "PyTorch", "Hugging Face", "Presidio", "Streamlit"],
     client: "Personal",
-    previewLink: "https://franjcastilloc-pii-detection-redaction--appstreamlit-app-cy5qbr.streamlit.app/",
-    previewLabel: "Open live demo",
-    previewName: "Streamlit demo",
-    repoLink: "https://github.com/FranJCastilloC/PII-Detection-Redaction-Pipeline",
+    featured: true,
+    links: [
+      { kind: "demo", href: "https://franjcastilloc-pii-detection-redaction--appstreamlit-app-cy5qbr.streamlit.app/" },
+      { kind: "code", href: "https://github.com/FranJCastilloC/PII-Detection-Redaction-Pipeline" },
+      { kind: "model", href: "https://huggingface.co/FranJCastilloC/distilbert-pii-ner-es-en" },
+    ],
     desc: [
       `End-to-end system that takes business documents in Spanish and English — invoices, contracts,
       emails, support tickets and onboarding forms — detects the personal data in them, redacts it,
@@ -264,11 +267,12 @@ export const portfolioData = [
     project: "Machine Learning / Document AI",
     languages: ["Python", "PyTorch", "LayoutLMv3", "Tesseract", "Streamlit"],
     client: "Personal",
-    previewLink: "https://huggingface.co/FranJCastilloC/layoutlmv3-docint-extraction",
-    previewLabel: "Open model card",
-    previewName: "Hugging Face model",
-    repoLink:
-      "https://github.com/FranJCastilloC/Clasificaci-n-y-extracci-n-OCR-de-documentos",
+    featured: true,
+    links: [
+      { kind: "demo", href: "https://franjcastilloc-clasificaci-n-y-extracci-appstreamlit-app-kffltm.streamlit.app/" },
+      { kind: "code", href: "https://github.com/FranJCastilloC/Clasificaci-n-y-extracci-n-OCR-de-documentos" },
+      { kind: "model", href: "https://huggingface.co/FranJCastilloC/layoutlmv3-docint-extraction" },
+    ],
     desc: [
       `A scanned document goes in and the system answers three questions: what type of document
       it is, which structured fields it contains, and whether that extraction can be trusted or

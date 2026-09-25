@@ -4,9 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { skillData } from "@/data/skills";
-import { knoledges } from "@/data/knoledges";
-import { items as capabilities } from "@/data/jobFeatures";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 function SkillMeter({ title, progress, delay }) {
   return (
@@ -30,25 +29,26 @@ function SkillMeter({ title, progress, delay }) {
 }
 
 export default function Stack() {
+  const { t } = useLang();
+  const { skillData, knoledges, items: capabilities } = useContent();
   const rail = [...knoledges, ...knoledges];
 
   return (
     <section id="stack" className="relative scroll-mt-20 border-y border-line bg-surface/30 py-20">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="02" kicker="Toolset" title="Stack & capabilities" />
+        <SectionHeading index="02" kicker={t("sections.stack.kicker")} title={t("sections.stack.title")} />
 
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <Reveal>
             <div className="panel p-5">
-              <p className="tag mb-5">Proficiency</p>
+              <p className="tag mb-5">{t("stack.proficiency")}</p>
               <ul className="space-y-5">
                 {skillData.map((s, i) => (
                   <SkillMeter key={`${s.title}-${i}`} {...s} delay={i * 0.09} />
                 ))}
               </ul>
               <p className="mt-6 border-t border-line pt-4 text-[0.7rem] leading-relaxed text-muted">
-                Self-assessed against the work I ship day to day, not a
-                certification score.
+                {t("stack.selfAssessed")}
               </p>
             </div>
           </Reveal>
@@ -87,7 +87,7 @@ export default function Stack() {
             </li>
           ))}
         </ul>
-        <p className="sr-only">Areas of knowledge: {knoledges.join(", ")}.</p>
+        <p className="sr-only">{t("stack.knowledge")}: {knoledges.join(", ")}.</p>
       </div>
     </section>
   );

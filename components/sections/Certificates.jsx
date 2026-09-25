@@ -5,16 +5,19 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Modal from "@/components/ui/Modal";
-import { blogData } from "@/data/blogs";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { useContent } from "@/lib/i18n/content";
 
 const clean = (s = "") => s.replace(/\s+/g, " ").trim();
 
 export default function Certificates() {
   const [open, setOpen] = useState(null);
+  const { t } = useLang();
+  const { blogData } = useContent();
 
   return (
     <section id="certificates" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="07" kicker="Credentials" title="Certificates" />
+      <SectionHeading index="07" kicker={t("sections.certificates.kicker")} title={t("sections.certificates.title")} />
 
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {blogData.map((c, i) => (
@@ -95,7 +98,7 @@ export default function Certificates() {
                     rel="noopener noreferrer"
                     className="mt-6 inline-flex items-center gap-2 rounded border border-accent/45 bg-accent/10 px-5 py-2.5 font-mono text-[0.8rem] text-accent transition-colors hover:bg-accent/20"
                   >
-                    Verify credential
+                    {t("certificates.verify")}
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <path d="M6 3h7v7M13 3L3.5 12.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
