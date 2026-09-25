@@ -54,7 +54,7 @@ function Track({ label, entries }) {
 export default function Experience() {
   return (
     <section id="experience" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="03" kicker="Track record" title="Experience & education" />
+      <SectionHeading index="04" kicker="Track record" title="Experience & education" />
       <div className="grid gap-12 sm:grid-cols-2 sm:gap-10">
         <Track label="Experience" entries={experiences} />
         <Track label="Education" entries={education} />

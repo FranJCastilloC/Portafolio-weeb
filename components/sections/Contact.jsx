@@ -49,7 +49,7 @@ export default function Contact() {
       className="relative scroll-mt-20 border-t border-line bg-surface/30 py-20"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="08" kicker="Say hello" title="Get in touch" />
+        <SectionHeading index="09" kicker="Say hello" title="Get in touch" />
 
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <Reveal>

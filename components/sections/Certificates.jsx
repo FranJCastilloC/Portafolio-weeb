@@ -14,7 +14,7 @@ export default function Certificates() {
 
   return (
     <section id="certificates" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="06" kicker="Credentials" title="Certificates" />
+      <SectionHeading index="07" kicker="Credentials" title="Certificates" />
 
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {blogData.map((c, i) => (

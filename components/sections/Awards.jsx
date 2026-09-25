@@ -14,7 +14,7 @@ export default function Awards() {
 
   return (
     <section id="awards" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="04" kicker="Recognition" title="Awards" />
+      <SectionHeading index="05" kicker="Recognition" title="Awards" />
 
       <ul className="grid gap-4 md:grid-cols-2">
         {awards.map((a, i) => (

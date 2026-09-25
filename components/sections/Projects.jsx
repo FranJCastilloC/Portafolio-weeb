@@ -155,7 +155,7 @@ export default function Projects() {
       className="relative scroll-mt-20 border-y border-line bg-surface/30 py-20"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="05" kicker="Selected work" title="Projects" />
+        <SectionHeading index="06" kicker="Selected work" title="Projects" />
 
         <div className="mb-8 flex flex-wrap items-center gap-2">
           {filterButtons.map((b) => {

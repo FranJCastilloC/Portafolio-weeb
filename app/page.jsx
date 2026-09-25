@@ -2,6 +2,7 @@ import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Stack from "@/components/sections/Stack";
+import Lab from "@/components/sections/Lab";
 import Experience from "@/components/sections/Experience";
 import Awards from "@/components/sections/Awards";
 import Projects from "@/components/sections/Projects";
@@ -18,6 +19,7 @@ export default function Page() {
         <Hero />
         <About />
         <Stack />
+        <Lab />
         <Experience />
         <Awards />
         <Projects />

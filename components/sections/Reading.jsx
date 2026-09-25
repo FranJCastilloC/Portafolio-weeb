@@ -9,7 +9,7 @@ const clean = (s = "") => s.replace(/\s+/g, " ").trim();
 export default function Reading() {
   return (
     <section id="reading" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8">
-      <SectionHeading index="07" kicker="Self-study" title="Reading" />
+      <SectionHeading index="08" kicker="Self-study" title="Reading" />
 
       <p className="mb-8 max-w-2xl text-[0.92rem] leading-relaxed text-ink-2">
         The machine learning and deep learning groundwork behind the work above —

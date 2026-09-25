@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const LINKS = [
   { id: "about", label: "About" },
   { id: "stack", label: "Stack" },
+  { id: "lab", label: "Lab" },
   { id: "experience", label: "Experience" },
   { id: "awards", label: "Awards" },
   { id: "projects", label: "Projects" },
@@ -59,13 +60,13 @@ export default function Nav() {
           </span>
         </a>
 
-        <ul className="ml-auto hidden items-center gap-1 md:flex">
+        <ul className="ml-auto hidden items-center gap-1 xl:flex">
           {LINKS.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 aria-current={active === id ? "true" : undefined}
-                className={`relative rounded px-3 py-2 font-mono text-[0.78rem] transition-colors ${
+                className={`relative rounded px-2.5 py-2 font-mono text-[0.78rem] transition-colors ${
                   active === id ? "text-accent" : "text-muted hover:text-ink-2"
                 }`}
               >
@@ -80,7 +81,7 @@ export default function Nav() {
           href="/CV.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-auto rounded border border-accent/45 bg-accent/10 px-3.5 py-1.5 font-mono text-[0.75rem] text-accent transition-all hover:bg-accent/20 hover:glow-accent md:ml-0"
+          className="ml-auto rounded border border-accent/45 bg-accent/10 px-3.5 py-1.5 font-mono text-[0.75rem] text-accent transition-all hover:bg-accent/20 hover:glow-accent xl:ml-0"
         >
           CV<span className="hidden sm:inline">.pdf</span>
         </a>
@@ -90,7 +91,7 @@ export default function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Toggle navigation"
-          className="grid h-9 w-9 place-items-center rounded border border-line text-ink-2 md:hidden"
+          className="grid h-9 w-9 place-items-center rounded border border-line text-ink-2 xl:hidden"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
             {open ? (
@@ -103,7 +104,7 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <ul className="border-t border-line bg-surface/95 px-5 py-2 backdrop-blur-md md:hidden">
+        <ul className="border-t border-line bg-surface/95 px-5 py-2 backdrop-blur-md xl:hidden">
           {LINKS.map(({ id, label }) => (
             <li key={id}>
               <a
